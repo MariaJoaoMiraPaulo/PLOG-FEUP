@@ -1,31 +1,31 @@
  board(Board):-
-  Board = [[empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty],
-            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
-            [empty, noWall, empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty, noWall,empty]].
+  Board = [[empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, player1, empty, empty, empty, player1, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, player2, empty, empty, empty, player2, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty],
+            [noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall, noWall],
+            [empty, empty, empty, empty, empty, empty, empty, empty, empty, empty, empty]].
 
 %TODO: Make a list for --------
 
@@ -52,4 +52,4 @@ traduz(empty, ' ').
 traduz(player1, 'O').
 traduz(player2, 'X').
 traduz(wall, '+').
-traduz(noWall, '-').
+traduz(noWall, '*').

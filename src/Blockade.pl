@@ -153,17 +153,55 @@ compareName(Name,T1,X,Y,Xf,Yf):-
     write(Xf),
     write(Yf).
 
-readingInput:-
+move([L1|LS], Player):-
+  readingInput(Pawn, Direction),
+  transformToCoordinates([L1|LS],Player, Pawn, Direction, X, Y).
+
+readingInput(Pawn, Direction):-
   write('Pawn you want to move( 1 , 2 ):'),nl,
   read(Pawn),nl,
-  write('PositionX( [a .... ]):'),nl,
-  read(X),nl,
-  write('PositionY( [1.... ] ):'),nl,
-  read(Y),
+  write('Movement directions ( left->l , right->r, top->t, bottom->b, diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
+  read(Direction),
   write(Pawn),write(': '),
-  write('('),write(X), write(' ,  '),
-  write(Y),write(')').
+  write(Direction).
 
+transformToCoordinates([L1|LS], Player, Pawn, Direction, X, Y):-
+  input(Player, Pawn, PawnName),
+  returnPosition(PawnName, [L1|LS], 1, 1, X, Y),
+  direction(Direction, X, Y).
+
+direction(l, X, Y):-
+  X is X - 2.
+
+direction(r, X, Y):-
+  X is X + 2.
+
+direction(t, X, Y):-
+  Y is Y - 2.
+
+direction(b, X, Y):-
+  Y is Y + 2.
+
+direction(dtr, X, Y):-
+  X is X + 1,
+  Y is Y - 1.
+
+direction(dtL, X, Y):-
+  X is X - 1,
+  Y is Y - 1.
+
+direction(dbl, X, Y):-
+  X is X - 1,
+  Y is Y + 1.
+
+direction(dbr, X, Y):-
+  X is X + 1,
+  Y is Y + 1.
+
+input(1, 1, player11).
+input(1, 2, player12).
+input(2, 1, player21).
+input(2, 2, player22).
 
 traduz(empty, '    ').
 traduz(startPlayer1, ' Oi ').

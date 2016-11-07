@@ -1,5 +1,5 @@
  emptyBoard(Board):-
-  Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
+  Board = [[empty,noVerticalWall,startPlayer1WithPawn,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
@@ -167,6 +167,30 @@ display_y_coord(Y, X1, X2):-
   0 is Y mod 2,
   X2 is X1,
   write('  ').
+
+returnPosition(Name,[L1|LS],X, Y, Xf, Yf):-
+  checkLine(Name,L1,X,Y,Xf,Yf),!;
+  (Y1 is Y+1,
+  returnPosition(Name,LS,X,Y1,Xf,Yf)).
+
+checkLine(Name,[L1|LS],X,Y,Xf,Yf):-
+  compareName(Name,L1,X,Y,Xf,Yf),!;
+  (X1 is X+1,
+  checkLine(Name,LS,X1,Y,Xf,Yf)).
+
+checkLine(Name,[],X,Y,Xf,Yf).
+
+compareName(Name,T1,X,Y,Xf,Yf):-
+  Name=T1,
+  Xf is X,
+  Yf is Y.
+
+  pos:-
+    emptyBoard(T),
+    returnPosition(startPlayer1WithPawn,T,1,1,Xf,Yf),
+    write(Xf),
+    write(Yf).
+
 
 traduz(empty, '    ').
 traduz(startPlayer1, ' Oi ').

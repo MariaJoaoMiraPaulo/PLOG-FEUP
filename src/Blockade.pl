@@ -111,7 +111,7 @@ display_line([]):-
   write(' |').
 
 display_x_coord:-
-  write('    A        B       C       D       E       F       G       H       I       J      K ').
+  write('    a        b       c       d       e       f       g       h       i       j      k ').
 
 display_y_coord(Y, X1, X2):-
   X1<10,
@@ -152,6 +152,17 @@ compareName(Name,T1,X,Y,Xf,Yf):-
     returnPosition(startPlayer1WithPawn,T,1,1,Xf,Yf),
     write(Xf),
     write(Yf).
+
+readingInput:-
+  write('Pawn you want to move( 1 , 2 ):'),nl,
+  read(Pawn),nl,
+  write('PositionX( [a .... ]):'),nl,
+  read(X),nl,
+  write('PositionY( [1.... ] ):'),nl,
+  read(Y),
+  write(Pawn),write(': '),
+  write('('),write(X), write(' ,  '),
+  write(Y),write(')').
 
 
 traduz(empty, '    ').

@@ -5,7 +5,7 @@
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
-            [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer1, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer1,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
+            [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer1WithPawn, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer1WithPawn,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
@@ -19,7 +19,7 @@
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
-            [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer2, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer2,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
+            [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer2WithPawn, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer2WithPawn,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
@@ -126,7 +126,7 @@ smallfinalboard(Board):-
 board_display:-
   display_x_coord,
   nl, write('    ------------------------------------------------------------------------------------  '),nl,
-  finalBoard(T),
+  emptyBoard(T),
   display_board(T,1,1).
 
 display_board([L1|LS],Y, X1):-
@@ -149,7 +149,7 @@ display_line([]):-
   write(' |').
 
 display_x_coord:-
-  write('    1        2       3       4       5       6       7       8       9      10     11 ').
+  write('    A        B       C       D       E       F       G       H       I       J      K ').
 
 display_y_coord(Y, X1, X2):-
   X1<10,
@@ -169,14 +169,17 @@ display_y_coord(Y, X1, X2):-
   write('  ').
 
 traduz(empty, '    ').
-traduz(startPlayer1, ' O  ').
-traduz(startPlayer2, ' X  ').
+traduz(startPlayer1, ' Oi ').
+traduz(startPlayer2, ' Xi ').
+traduz(startPlayer1WithPawn, ' Oi ').
+traduz(startPlayer2WithPawn, ' Xi ').
 traduz(verticalwall, ' *  ').
 traduz(wall, '****').
 traduz(noWall, '----').
 traduz(noVerticalWall, ' |  ').
-traduz(player21,' P2 ').
-traduz(player22,' P2 ').
-traduz(player12,' P1 ').
-traduz(player11,' P1 ').
-traduz(winnerplayer21,' W2 ').
+traduz(player21,' X  ').
+traduz(player22,' X  ').
+traduz(player12,' O  ').
+traduz(player11,' O  ').
+traduz(winnerplayer21,' Xw ').
+traduz(winnerplayer12,' Yw ').

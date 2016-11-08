@@ -173,36 +173,36 @@ transformToCoordinates([L1|LS], Player, Pawn, Direction, X, Y):-
 
 
 direction(l, X, Y, Xf, Yf):-
-  Xf is X - 2,
+  Xf is X - 4,
   Yf is Y.
 
 direction(r, X, Y, Xf, Yf):-
-  Xf is X + 2,
+  Xf is X + 4,
   Yf is Y.
 
 direction(t, X, Y, Xf, Yf):-
-  Yf is Y - 2,
+  Yf is Y - 4,
   Xf is X.
 
 direction(b, X, Y, Xf, Yf):-
-  Yf is Y + 2,
+  Yf is Y + 4,
   Xf is X.
 
 direction(dtr, X, Y, Xf, Yf):-
-  Xf is X + 1,
-  Yf is Y - 1.
+  Xf is X + 2,
+  Yf is Y - 2.
 
 direction(dtL, X, Y, Xf, Yf):-
-  Xf is X - 1,
-  Yf is Y - 1.
+  Xf is X - 2,
+  Yf is Y - 2.
 
 direction(dbl, X, Y, Xf, Yf):-
-  Xf is X - 1,
-  Yf is Y + 1.
+  Xf is X - 2,
+  Yf is Y + 2.
 
 direction(dbr, X, Y, Xf, Yf):-
-  Xf is X + 1,
-  Yf is Y + 1.
+  Xf is X + 2,
+  Yf is Y + 2.
 
 input(1, 1, player11).
 input(1, 2, player12).

@@ -156,7 +156,33 @@ pos:-
 
 move([L1|LS], Player):-
   readingInput(Pawn, Direction),
-  transformToCoordinates([L1|LS],Player, Pawn, Direction, X, Y).
+  transformToCoordinates([L1|LS],Player, Pawn, Direction,Xi, Yi, Xf, Yf),
+  isAvalidMove(Xi,Yi,Xf,Yf,Direction),!;
+  move([L1|LS], Player).
+
+isAvalidMove(Xi,Yi,Xf,Yf,Direction):-
+  isAwallPosition(X,Y),
+  checkBorders(X,Y),
+  isApawnPosition(X,Y).
+
+%isAwallPosition(Xi,Yi,Xf,Yf,Direction):-
+
+getListElement([L1|LS],Xelement,Yelement,X,Y,Element):-
+  checkTabLine(L1,Xelement,Yelement,X,Y,Element),!;
+  (Y1 is Y+1, write(X),
+  getListElement(LS,Xelement,Yelement,X,Y1,Element)).
+
+checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
+  compareCoordinates(L1,Xelement,Yelement,X,Y,Element),!;
+  ( X1 is X+1,
+  checkTabLine(LS,Xelement,Yelement,X1,Y,Element)).
+
+  getListElement([L1|LS],Xelement,Yelement,X,Y,Element).
+
+  compareCoordinates(L1,Xelement,Yelement,X,Y,Element):-
+    Xelement=X,
+    Yelement=Y,
+    Element=L1.
 
 readingInput(Pawn, Direction):-
   write('Pawn you want to move( 1 , 2 ):'),nl,
@@ -166,10 +192,10 @@ readingInput(Pawn, Direction):-
   write(Pawn),write(': '),
   write(Direction).
 
-transformToCoordinates([L1|LS], Player, Pawn, Direction, X, Y):-
+transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
   input(Player, Pawn, PawnName),
-  returnPosition(PawnName, [L1|LS], 1, 1, X, Y),
-  direction(Direction, X, Y, Xf, Yf),write(Xf),nl,write(Yf).
+  returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
+  direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf).
 
 
 direction(l, X, Y, Xf, Yf):-

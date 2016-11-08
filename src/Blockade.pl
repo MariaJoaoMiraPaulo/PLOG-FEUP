@@ -1,5 +1,5 @@
  emptyBoard(Board):-
-  Board = [[empty,noVerticalWall,startPlayer1WithPawn,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
+  Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
@@ -131,7 +131,8 @@ display_y_coord(Y, X1, X2):-
   write('  ').
 
 returnPosition(Name,[L1|LS],X, Y, Xf, Yf):-
-  checkLine(Name,L1,X,Y,Xf,Yf),!;
+  checkLine(Name,L1,X,Y,Xf,Yf),
+  Yf == Y,!;
   (Y1 is Y+1,
   returnPosition(Name,LS,X,Y1,Xf,Yf)).
 
@@ -147,11 +148,11 @@ compareName(Name,T1,X,Y,Xf,Yf):-
   Xf is X,
   Yf is Y.
 
-  pos:-
-    emptyBoard(T),
-    returnPosition(startPlayer1WithPawn,T,1,1,Xf,Yf),
-    write(Xf),
-    write(Yf).
+pos:-
+  emptyBoard(T),
+  returnPosition(startPlayer1WithPawn,T,1,1,Xf,Yf),
+  write(Xf),
+  write(Yf).
 
 move([L1|LS], Player):-
   readingInput(Pawn, Direction),
@@ -168,35 +169,40 @@ readingInput(Pawn, Direction):-
 transformToCoordinates([L1|LS], Player, Pawn, Direction, X, Y):-
   input(Player, Pawn, PawnName),
   returnPosition(PawnName, [L1|LS], 1, 1, X, Y),
-  direction(Direction, X, Y).
+  direction(Direction, X, Y, Xf, Yf),write(Xf),nl,write(Yf).
 
-direction(l, X, Y):-
-  X is X - 2.
 
-direction(r, X, Y):-
-  X is X + 2.
+direction(l, X, Y, Xf, Yf):-
+  Xf is X - 2,
+  Yf is Y.
 
-direction(t, X, Y):-
-  Y is Y - 2.
+direction(r, X, Y, Xf, Yf):-
+  Xf is X + 2,
+  Yf is Y.
 
-direction(b, X, Y):-
-  Y is Y + 2.
+direction(t, X, Y, Xf, Yf):-
+  Yf is Y - 2,
+  Xf is X.
 
-direction(dtr, X, Y):-
-  X is X + 1,
-  Y is Y - 1.
+direction(b, X, Y, Xf, Yf):-
+  Yf is Y + 2,
+  Xf is X.
 
-direction(dtL, X, Y):-
-  X is X - 1,
-  Y is Y - 1.
+direction(dtr, X, Y, Xf, Yf):-
+  Xf is X + 1,
+  Yf is Y - 1.
 
-direction(dbl, X, Y):-
-  X is X - 1,
-  Y is Y + 1.
+direction(dtL, X, Y, Xf, Yf):-
+  Xf is X - 1,
+  Yf is Y - 1.
 
-direction(dbr, X, Y):-
-  X is X + 1,
-  Y is Y + 1.
+direction(dbl, X, Y, Xf, Yf):-
+  Xf is X - 1,
+  Yf is Y + 1.
+
+direction(dbr, X, Y, Xf, Yf):-
+  Xf is X + 1,
+  Yf is Y + 1.
 
 input(1, 1, player11).
 input(1, 2, player12).

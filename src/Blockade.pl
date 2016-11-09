@@ -157,27 +157,25 @@ pos:-
 move([L1|LS], Player):-
   readingInput(Pawn, Direction),
   transformToCoordinates([L1|LS],Player, Pawn, Direction,Xi, Yi, Xf, Yf),
-  isAvalidMove(Xi,Yi,Xf,Yf,Direction),!;
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction),!;
   move([L1|LS], Player).
 
-isAvalidMove(Xi,Yi,Xf,Yf,Direction):-
-  isAwallPosition(X,Y),
-  checkBorders(X,Y),
-  isApawnPosition(X,Y).
-
-%isAwallPosition(Xi,Yi,Xf,Yf,Direction):-
+isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction):-
+  hasNoAWall([L1|LS],Direction,Xi,Yi),
+  checkBorders(Xf,Yf),
+  isApawnPosition(Xf,Yf).
 
 getListElement([L1|LS],Xelement,Yelement,X,Y,Element):-
   checkTabLine(L1,Xelement,Yelement,X,Y,Element),!;
   (Y1 is Y+1, write(X),
   getListElement(LS,Xelement,Yelement,X,Y1,Element)).
 
+getListElement([L1|LS],Xelement,Yelement,X,Y,Element).
+
 checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element),!;
   ( X1 is X+1,
   checkTabLine(LS,Xelement,Yelement,X1,Y,Element)).
-
-  getListElement([L1|LS],Xelement,Yelement,X,Y,Element).
 
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element):-
     Xelement=X,
@@ -197,6 +195,13 @@ transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
   direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf).
 
+hasNoWall([L1|LS],l,Xi,Yi):-
+  FirstX is Xi-1,
+  getListElement([L1|LS],FirstX,Yi,1,1,Element),
+  Element == noVerticalWall,
+  SecondX is Xi-3,
+  getListElement([L1|LS],SecondX,Yi,1,1,Element),
+  Element == noVerticalWall.
 
 direction(l, X, Y, Xf, Yf):-
   Xf is X - 4,

@@ -34,18 +34,22 @@ compareName(Name,T1,X,Y,Xf,Yf):-
   Xf is X,
   Yf is Y.
 
-setListElement([L1|LS],Xlement,Yelement,X,Y,Element,[N1|NS]):-
-  setTabLine(L1,Xlement,Yelement,X,Y,Element,N1),
+setListElement([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
+  setTabLine(L1,Xelement,Yelement,X,Y,Element,N1),
   Y1 is Y+1,
   setListElement(LS,Xelement,Yelement,X,Y1,Element,NS).
 
+setListElement([],Xelement,Yelement,X,Y,Element,[]).
+
 setTabLine([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
-  copyValues(L1,Xelement,Yelement,X,Y,Element,N1),
+  (setElementValue(L1,Xelement,Yelement,X,Y,N1),
+  N1=Element;
+  N1=L1),
   X1 is X+1,
   setTabLine(LS,Xelement,Yelement,X1,Y,Element,NS).
 
-copyValues(L1,Xelement,Yelement,X,Y,Element,N1):-
-  (Xelement=X,
-  Yelement=Y),
-  N1=Element;
-  N1=L1.
+setTabLine([],Xelement,Yelement,X,Y,Element,[]).
+
+setElementValue(L1,Xelement,Yelement,X,Y,N1):-
+  Xelement=X,
+  Yelement=Y.

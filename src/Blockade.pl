@@ -184,17 +184,15 @@ checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
 
 readingInput(Pawn, Direction):-
   readPawn(Pawn),
+  validateInputPawn(Pawn, NewPawn),
   write('Movement directions ( left->(l1 or l2), right->(r1 or r2), top->(t1 or t2), bottom->(b1 or b2), diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
   read(Direction),
-  write(Pawn),write(': '),
+  write(NewPawn),write(': '),
   write(Direction).
 
 readPawn(Pawn):-
-write('Pawn you want to move( 1 , 2 ):'),nl,
-read(Pawn),
-Pawn =\= 1,
-Pawn =\= 2.
-
+  write('Pawn you want to move( 1 , 2 ):'),nl,
+  read(Pawn).
 
 transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
   input(Player, Pawn, PawnName),
@@ -221,8 +219,7 @@ hasNoWall([L1|LS],r,Xi,Yi):-
     Element == noVerticalWall,
     SecondX is Xi+3,
     getListElement([L1|LS],SecondX,Yi,1,1,SecondElement),
-    SecondElement == noVerticalWall,
-    write("SAI right").
+    SecondElement == noVerticalWall.
 
 hasNoWall([L1|LS],t,Xi,Yi):-
     FirstY is Yi-1,
@@ -230,8 +227,7 @@ hasNoWall([L1|LS],t,Xi,Yi):-
     Element == noWall,
     SecondY is Yi-3,
     getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
-    SecondElement == noWall,
-    write("SAI right").
+    SecondElement == noWall.
 
 hasNoWall([L1|LS],b,Xi,Yi):-
     FirstY is Yi+1,
@@ -302,6 +298,18 @@ direction(dbl, X, Y, Xf, Yf):-
 direction(dbr, X, Y, Xf, Yf):-
   Xf is X + 2,
   Yf is Y + 2.
+
+validateInputPawn(1, NewPawn):-
+  NewPawn=1.
+
+validateInputPawn(2, NewPawn):-
+  NewPawn=2.
+
+validateInputPawn(Pawn, NewPawn):-
+  write('Invalid input'),nl,
+  readPawn(AnotherTry),
+  validateInputPawn(AnotherTry, NewPawn).
+
 
 input(1, 1, player11).
 input(1, 2, player12).

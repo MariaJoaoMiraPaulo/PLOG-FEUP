@@ -175,7 +175,7 @@ getListElement([L1|LS],Xelement,Yelement,X,Y,Element).
 checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element),!;
   ( X1 is X+1,
-  checkTabLine(LS,Xelement,Yelement,X1,Y,SecondElement)).
+  checkTabLine(LS,Xelement,Yelement,X1,Y,Element)).
 
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element):-
     Xelement=X,
@@ -208,20 +208,21 @@ checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit):-
   Yf > Ylimit.
 
 hasNoWall([L1|LS],l,Xi,Yi):-
-  FirstX is Xi-1,
-  getListElement([L1|LS],FirstX,Yi,1,1,Element),
-  Element == noVerticalWall,
-  SecondX is Xi-3,
-  getListElement([L1|LS],SecondX,Yi,1,1,Element),
-  Element == noVerticalWall.
+    FirstX is Xi-1,
+    getListElement([L1|LS],FirstX,Yi,1,1,Element),
+    Element == noVerticalWall,
+    SecondX is Xi-3,
+    getListElement([L1|LS],SecondX,Yi,1,1,SecondElement),
+    SecondElement == noVerticalWall.
 
 hasNoWall([L1|LS],r,Xi,Yi):-
     FirstX is Xi+1,
     getListElement([L1|LS],FirstX,Yi,1,1,Element),
     Element == noVerticalWall,
     SecondX is Xi+3,
-    getListElement([L1|LS],SecondX,Yi,1,1,Element),
-    Element == noVerticalWall.
+    getListElement([L1|LS],SecondX,Yi,1,1,SecondElement),
+    SecondElement == noVerticalWall,
+    write("SAI right").
 
 hasNoWall([L1|LS],t,Xi,Yi):-
     FirstY is Yi-1,
@@ -229,7 +230,8 @@ hasNoWall([L1|LS],t,Xi,Yi):-
     Element == noWall,
     SecondY is Yi-3,
     getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
-    SecondElement == noWall.
+    SecondElement == noWall,
+    write("SAI right").
 
 hasNoWall([L1|LS],b,Xi,Yi):-
     FirstY is Yi+1,
@@ -239,7 +241,7 @@ hasNoWall([L1|LS],b,Xi,Yi):-
     getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
     SecondElement == noWall.
 
-thasNoWall([L1|LS],dtr,Xi,Yi):-
+hasNoWall([L1|LS],dtr,Xi,Yi):-
     FirstX is Xi+1,
     getListElement([L1|LS],FirstX,Yi,1,1,Element),
     Element == noVerticalWall,

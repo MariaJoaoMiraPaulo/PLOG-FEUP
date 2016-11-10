@@ -233,6 +233,20 @@ hasNoWall([L1|LS],b,Xi,Yi):-
     getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
     SecondElement == noWall.
 
+thasNoWall([L1|LS],dtr,Xi,Yi):-
+    FirstX is Xi+1,
+    getListElement([L1|LS],FirstX,Yi,1,1,Element),
+    Element == noVerticalWall,
+    FirstY is Yi-2,
+    getListElement([L1|LS],FirstX,FirstY,1,1,SecondElement),
+    SecondElement == noVerticalWall,
+    SecondY is Yi-1,
+    getListElement([L1|LS],Xi,SecondY,1,1,ThirdElement),
+    ThirdElement == noWall,
+    SecondX is Xi+2,
+    getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
+    FourthElement == noWall.
+
 direction(l, X, Y, Xf, Yf):-
   Xf is X - 4,
   Yf is Y.

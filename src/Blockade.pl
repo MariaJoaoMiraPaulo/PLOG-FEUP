@@ -183,12 +183,18 @@ checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
     Element=L1.
 
 readingInput(Pawn, Direction):-
-  write('Pawn you want to move( 1 , 2 ):'),nl,
-  read(Pawn),nl,
+  readPawn(Pawn),
   write('Movement directions ( left->(l1 or l2), right->(r1 or r2), top->(t1 or t2), bottom->(b1 or b2), diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
   read(Direction),
   write(Pawn),write(': '),
   write(Direction).
+
+readPawn(Pawn):-
+write('Pawn you want to move( 1 , 2 ):'),nl,
+read(Pawn),
+Pawn =\= 1,
+Pawn =\= 2.
+
 
 transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
   input(Player, Pawn, PawnName),
@@ -247,20 +253,36 @@ thasNoWall([L1|LS],dtr,Xi,Yi):-
     getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
     FourthElement == noWall.
 
-direction(l, X, Y, Xf, Yf):-
+direction(l2, X, Y, Xf, Yf):-
   Xf is X - 4,
   Yf is Y.
 
-direction(r, X, Y, Xf, Yf):-
+direction(l1, X, Y, Xf, Yf):-
+  Xf is X - 2,
+  Yf is Y.
+
+direction(r2, X, Y, Xf, Yf):-
   Xf is X + 4,
   Yf is Y.
 
-direction(t, X, Y, Xf, Yf):-
+direction(r1, X, Y, Xf, Yf):-
+  Xf is X + 2,
+  Yf is Y.
+
+direction(t2, X, Y, Xf, Yf):-
   Yf is Y - 4,
   Xf is X.
 
-direction(b, X, Y, Xf, Yf):-
+direction(t1, X, Y, Xf, Yf):-
+  Yf is Y - 2,
+  Xf is X.
+
+direction(b2, X, Y, Xf, Yf):-
   Yf is Y + 4,
+  Xf is X.
+
+direction(b1, X, Y, Xf, Yf):-
+  Yf is Y + 2,
   Xf is X.
 
 direction(dtr, X, Y, Xf, Yf):-

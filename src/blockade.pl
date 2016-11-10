@@ -8,4 +8,3 @@ pos:-
   returnPosition(startPlayer1WithPawn,T,1,1,Xf,Yf),
   write(Xf),
   write(Yf).
-  

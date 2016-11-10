@@ -221,8 +221,7 @@ hasNoWall([L1|LS],r,Xi,Yi):-
     Element == noVerticalWall,
     SecondX is Xi+3,
     getListElement([L1|LS],SecondX,Yi,1,1,SecondElement),
-    SecondElement == noVerticalWall,
-    write("SAI right").
+    SecondElement == noVerticalWall.
 
 hasNoWall([L1|LS],t,Xi,Yi):-
     FirstY is Yi-1,
@@ -230,8 +229,7 @@ hasNoWall([L1|LS],t,Xi,Yi):-
     Element == noWall,
     SecondY is Yi-3,
     getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
-    SecondElement == noWall,
-    write("SAI right").
+    SecondElement == noWall.
 
 hasNoWall([L1|LS],b,Xi,Yi):-
     FirstY is Yi+1,
@@ -252,6 +250,48 @@ hasNoWall([L1|LS],dtr,Xi,Yi):-
     getListElement([L1|LS],Xi,SecondY,1,1,ThirdElement),
     ThirdElement == noWall,
     SecondX is Xi+2,
+    getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
+    FourthElement == noWall.
+
+hasNoWall([L1|LS],dtl,Xi,Yi):-
+    FirstX is Xi-1,
+    getListElement([L1|LS],FirstX,Yi,1,1,Element),
+    Element == noVerticalWall,
+    FirstY is Yi-2,
+    getListElement([L1|LS],FirstX,FirstY,1,1,SecondElement),
+    SecondElement == noVerticalWall,
+    SecondY is Yi-1,
+    getListElement([L1|LS],Xi,SecondY,1,1,ThirdElement),
+    ThirdElement == noWall,
+    SecondX is Xi-2,
+    getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
+    FourthElement == noWall.
+
+hasNoWall([L1|LS],dbr,Xi,Yi):-
+    FirstX is Xi+1,
+    getListElement([L1|LS],FirstX,Yi,1,1,Element),
+    Element == noVerticalWall,
+    FirstY is Yi+2,
+    getListElement([L1|LS],FirstX,FirstY,1,1,SecondElement),
+    SecondElement == noVerticalWall,
+    SecondY is Yi+1,
+    getListElement([L1|LS],Xi,SecondY,1,1,ThirdElement),
+    ThirdElement == noWall,
+    SecondX is Xi+2,
+    getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
+    FourthElement == noWall.
+
+hasNoWall([L1|LS],dbl,Xi,Yi):-
+    FirstX is Xi-1,
+    getListElement([L1|LS],FirstX,Yi,1,1,Element),
+    Element == noVerticalWall,
+    FirstY is Yi+2,
+    getListElement([L1|LS],FirstX,FirstY,1,1,SecondElement),
+    SecondElement == noVerticalWall,
+    SecondY is Yi+1,
+    getListElement([L1|LS],Xi,SecondY,1,1,ThirdElement),
+    ThirdElement == noWall,
+    SecondX is Xi-2,
     getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
     FourthElement == noWall.
 

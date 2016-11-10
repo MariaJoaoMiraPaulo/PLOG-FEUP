@@ -185,7 +185,7 @@ checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
 readingInput(Pawn, Direction):-
   write('Pawn you want to move( 1 , 2 ):'),nl,
   read(Pawn),nl,
-  write('Movement directions ( left->l , right->r, top->t, bottom->b, diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
+  write('Movement directions ( left->(l1 or l2), right->(r1 or r2), top->(t1 or t2), bottom->(b1 or b2), diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
   read(Direction),
   write(Pawn),write(': '),
   write(Direction).

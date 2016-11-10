@@ -33,7 +33,7 @@
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, player11,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
-            [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
+            [wall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer1, verticalwall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer1,noVerticalWall, empty,noVerticalWall, player22, noVerticalWall,empty],
             [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
             [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,verticalwall, player12,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
@@ -175,7 +175,7 @@ getListElement([L1|LS],Xelement,Yelement,X,Y,Element).
 checkTabLine([L1|LS],Xelement,Yelement,X,Y,Element):-
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element),!;
   ( X1 is X+1,
-  checkTabLine(LS,Xelement,Yelement,X1,Y,Element)).
+  checkTabLine(LS,Xelement,Yelement,X1,Y,SecondElement)).
 
   compareCoordinates(L1,Xelement,Yelement,X,Y,Element):-
     Xelement=X,
@@ -210,6 +210,22 @@ hasNoWall([L1|LS],r,Xi,Yi):-
     SecondX is Xi+3,
     getListElement([L1|LS],SecondX,Yi,1,1,Element),
     Element == noVerticalWall.
+
+hasNoWall([L1|LS],t,Xi,Yi):-
+    FirstY is Yi-1,
+    getListElement([L1|LS],Xi,FirstY,1,1,Element),
+    Element == noWall,
+    SecondY is Yi-3,
+    getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
+    SecondElement == noWall.
+
+hasNoWall([L1|LS],b,Xi,Yi):-
+    FirstY is Yi+1,
+    getListElement([L1|LS],Xi,FirstY,1,1,Element),
+    Element == noWall,
+    SecondY is Yi+3,
+    getListElement([L1|LS],Xi,SecondY,1,1,SecondElement),
+    SecondElement == noWall.
 
 direction(l, X, Y, Xf, Yf):-
   Xf is X - 4,

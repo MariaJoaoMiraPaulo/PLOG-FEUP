@@ -113,7 +113,13 @@ move([L1|LS], Player, Xlimit, Ylimit):-
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoAWall([L1|LS],Direction,Xi,Yi),
   checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit),
-  isApawnPosition(Xf,Yf).
+  \+isApawnPosition([L1|LS],Xf,Yf).
+
+isApawnPosition([L1|LS],Xf,Yf):-
+  getListElement([L1|LS],Xf,Yf,1,1,Element),
+  Element\=empty,
+  Element\=startPlayer1,
+  Element\=startPlayer2.
 
 transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
   input(Player, Pawn, PawnName),

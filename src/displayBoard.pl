@@ -85,11 +85,10 @@ finalBoard(Board):-
            [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
            [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
-board_display:-
+board_display([L1|LS]):-
  display_x_coord,
  nl, write('    ------------------------------------------------------------------------------------  '),nl,
- emptyBoard(T),
- display_board(T,1,1).
+ display_board([L1|LS],1,1).
 
 display_board([L1|LS],Y, X1):-
  display_y_coord(Y, X1, X2),

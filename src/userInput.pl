@@ -4,7 +4,7 @@ readingInput(Pawn, Direction,NewPawn,NewDirection ):-
   readDirection(Direction),
   validateInputDirection(Direction, NewDirection),
   write(NewPawn),write(': '),
-  write(NewDirection).
+  write(NewDirection),nl,write('vou sair'),nl.
 
 readPawn(Pawn):-
   write('Pawn you want to move( 1 , 2 ):'),nl,
@@ -29,6 +29,7 @@ validateInputDirection(l1, NewDirection):-
   NewDirection=l1.
 
 validateInputDirection(l2, NewDirection):-
+  write('entrei'),
   NewDirection=l2.
 
 validateInputDirection(r1, NewDirection):-

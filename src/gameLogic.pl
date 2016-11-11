@@ -1,11 +1,12 @@
 move([L1|LS], Player, Xlimit, Ylimit):-
-  display_board([L1|LS],1,1),
+  board_display([L1|LS]),
   readingInput(Pawn, Direction,NewPawn,NewDirection),
-  transformToCoordinates([L1|LS],Player, Pawn, Direction,Xi, Yi, Xf, Yf),
-  (isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit),
-  input(Player,NewPawn,Name),
-  setListElement([L1|L2],Xf,Yf,1,1,Name,[N1|NS]);)
-  move([N1|NS], Player, Xlimit, Ylimit).
+  transformToCoordinates([L1|LS],Player, Pawn, Direction,Xi, Yi, Xf, Yf, PawnName),
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit),
+  (setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
+  setListElement([N1|NS],Xi,Yi,1,1,empty,[M1|MS]),board_display([M1|MS]));
+  write('Invalid play, try again'),nl,
+  move([L1|LS], Player, Xlimit, Ylimit).
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),
@@ -124,10 +125,10 @@ hasNoWall([L1|LS],dbl,Xi,Yi):-
   getListElement([L1|LS],SecondX,SecondY,1,1,FourthElement),
   FourthElement == noWall.
 
-transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf):-
+transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName):-
   input(Player, Pawn, PawnName),
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
-  direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf).
+  direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf),nl.
 
 direction(l2, X, Y, Xf, Yf):-
   Xf is X - 4,

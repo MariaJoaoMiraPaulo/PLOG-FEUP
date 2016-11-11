@@ -1,3 +1,4 @@
+%Font Style : Doom
 mainMenu:-
 	printMainMenu,
   read(Input),

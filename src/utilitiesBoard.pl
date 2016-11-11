@@ -46,12 +46,12 @@ setListElement([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
 setTabLine([],_Xelement,_Yelement,_X,_Y,_Element,[]).
 
 setTabLine([L1|LS],Xelement,Yelement,X,Y,Element,[N1|NS]):-
-  (setElementValue(L1,Xelement,Yelement,X,Y,N1),
+  (setElementValue(Xelement,Yelement,X,Y),
   N1=Element;
   N1=L1),
   X1 is X+1,
   setTabLine(LS,Xelement,Yelement,X1,Y,Element,NS).
 
-setElementValue(_L1,Xelement,Yelement,X,Y,_N1):-
+setElementValue(Xelement,Yelement,X,Y):-
   Xelement=X,
   Yelement=Y.

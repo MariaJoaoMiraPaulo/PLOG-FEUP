@@ -7,8 +7,8 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
-  readingInput(Pawn, _Direction,_NewPawn,NewDirection),
-  transformToCoordinates([L1|LS],Player, Pawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+  readingInput(_Pawn, _Direction,NewPawn,NewDirection),
+  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
   isAStartHouse(Xi,Yi, OldPawnName),

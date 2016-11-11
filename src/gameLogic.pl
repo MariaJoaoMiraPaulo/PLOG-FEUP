@@ -6,10 +6,10 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
   gameLoop([M1|MS],Xlimit,Ylimit).
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
-  nl,nl,write('----------PLAYER----------'),nl,nl,
+  nl,nl,player1,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
   write('Click Enter ...'),nl,
-  nl,nl,write('------------PC------------'),nl,nl,
+  nl,nl,pc,nl,nl,
   play([N1|NS],pc ,Xlimit,Ylimit,[M1|MS]),
   gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
 

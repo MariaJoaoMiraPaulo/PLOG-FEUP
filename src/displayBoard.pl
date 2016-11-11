@@ -5,7 +5,7 @@ Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty
         [noWall,null, noWall,null, noWall, null, noWall,null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
         [noWall,null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
-        [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer1WithPawn, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer1WithPawn,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
+        [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer1WithPawn1, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer1WithPawn2,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
         [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
         [noWall,null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
@@ -19,7 +19,7 @@ Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty
         [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
         [noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall],
-        [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer2WithPawn, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer2WithPawn,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
+        [empty, noVerticalWall,empty, noVerticalWall,empty, noVerticalWall,startPlayer2WithPawn1, noVerticalWall,empty,noVerticalWall, empty, noVerticalWall,empty,noVerticalWall, startPlayer2WithPawn2,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall,empty],
         [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall,empty,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty],
         [noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null,  noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall],
@@ -133,15 +133,17 @@ display_y_coord(Y, X1, X2):-
  traduz(null, '    ').
  traduz(startPlayer1, ' Oi ').
  traduz(startPlayer2, ' Xi ').
- traduz(startPlayer1WithPawn, ' Oi ').
- traduz(startPlayer2WithPawn, ' Xi ').
+ traduz(startPlayer1WithPawn1, ' Oi1').
+ traduz(startPlayer1WithPawn2, ' Oi2').
+ traduz(startPlayer2WithPawn1, ' Xi1').
+ traduz(startPlayer2WithPawn2, ' Xi2').
  traduz(verticalwall, ' *  ').
  traduz(wall, '****').
  traduz(noWall, '----').
  traduz(noVerticalWall, ' |  ').
- traduz(player21,' X  ').
- traduz(player22,' X  ').
- traduz(player12,' O  ').
- traduz(player11,' O  ').
+ traduz(player21,' X1 ').
+ traduz(player22,' X2 ').
+ traduz(player12,' O1 ').
+ traduz(player11,' O2 ').
  traduz(winnerplayer21,' Xw ').
  traduz(winnerplayer12,' Yw ').

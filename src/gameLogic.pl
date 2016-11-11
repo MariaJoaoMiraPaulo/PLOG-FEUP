@@ -8,6 +8,16 @@ play([L1|LS], Player, Xlimit, Ylimit):-
   write('Invalid play, try again'),nl,
   play([L1|LS], Player, Xlimit, Ylimit).
 
+verifyGameState([L1|LS],PlayerNumber,Xf,Yf):-
+  isAwinner([L1|LS],PlayerNumber,Xf,Yf),
+  winner(PlayerNumber).
+
+winner(1):-
+  write('PLAYER 1, YOU WIN!!!').
+
+winner(2):-
+  write('PLAYER 2, YOU WIN!!!').
+
 isAwinner([L1|LS],PlayerNumber,Xf,Yf):-
   getWinnerPosition(PlayerNumber,FinalPosition),
   getListElement([L1|LS],Xf,Yf,1,1,Element),

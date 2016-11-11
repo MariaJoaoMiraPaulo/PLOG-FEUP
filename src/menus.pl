@@ -5,7 +5,7 @@ mainMenu:-
   readInput(Input).
 
 readInput(1):-
-  normalBoard(T),
+  emptyBoard(T),
   gameLoop(T, 21, 27).
 
 readInput(2):-
@@ -16,13 +16,13 @@ readInput(2):-
 readInput(3):-
   write('Exiting...').
 
-readInput(Input):-
+readInput(_Input):-
   write('Error: invalid input.').
 
 readHowToPlayInput(1):-
     mainMenu.
 
-readHowToPlayInput(InputHowToPlay):-
+readHowToPlayInput(_InputHowToPlay):-
     write('Error: invalid input.').
 
 printMainMenu:-

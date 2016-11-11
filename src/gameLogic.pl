@@ -23,7 +23,7 @@ play([L1|LS], pc , Xlimit, Ylimit,[M1|MS]):-
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit, _T).
+  play([L1|LS], pc, Xlimit, Ylimit, _T).
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),

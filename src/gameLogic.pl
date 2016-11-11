@@ -8,6 +8,18 @@ play([L1|LS], Player, Xlimit, Ylimit):-
   write('Invalid play, try again'),nl,
   play([L1|LS], Player, Xlimit, Ylimit).
 
+isAwinner([L1|LS],PlayerNumber,Xf,Yf):-
+  getWinnerPosition(PlayerNumber,FinalPosition),
+  getListElement([L1|LS],Xf,Yf,1,1,Element),
+  Element==FinalPosition.
+
+getWinnerPosition(1,FinalPosition):-
+  FinalPosition=startPlayer2.
+
+getWinnerPosition(2,FinalPosition):-
+  FinalPosition=startPlayer1.
+
+
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),
   \+checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit),

@@ -1,8 +1,11 @@
 move([L1|LS], Player, Xlimit, Ylimit):-
-  readingInput(Pawn, Direction),
+  display_board([L1|LS],1,1),
+  readingInput(Pawn, Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, Pawn, Direction,Xi, Yi, Xf, Yf),
-  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit),!;
-  move([L1|LS], Player, Xlimit, Ylimit).
+  (isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit),
+  input(Player,NewPawn,Name),
+  setListElement([L1|L2],Xf,Yf,1,1,Name,[N1|NS]);)
+  move([N1|NS], Player, Xlimit, Ylimit).
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),

@@ -1,4 +1,4 @@
-readingInput(Pawn, Direction):-
+readingInput(Pawn, Direction,NewPawn,NewDirection ):-
   readPawn(Pawn),
   validateInputPawn(Pawn, NewPawn),
   readDirection(Direction),

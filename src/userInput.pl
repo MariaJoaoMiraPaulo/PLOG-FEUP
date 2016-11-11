@@ -14,7 +14,7 @@ validateInputPawn(1, NewPawn):-
 validateInputPawn(2, NewPawn):-
   NewPawn=2.
 
-validateInputPawn(Pawn, NewPawn):-
+validateInputPawn(_Pawn, NewPawn):-
   write('Invalid pawn input'),nl,
   readPawn(AnotherTry),
   validateInputPawn(AnotherTry, NewPawn).
@@ -59,7 +59,7 @@ validateInputDirection(dbl, NewDirection):-
 validateInputDirection(dbr, NewDirection):-
   NewDirection=dbr.
 
-validateInputDirection(Direction, NewDirection):-
+validateInputDirection(_Direction, NewDirection):-
   write('Invalid direction input'),nl,nl,nl,
   readDirection(AnotherTry),
   validateInputDirection(AnotherTry, NewDirection).

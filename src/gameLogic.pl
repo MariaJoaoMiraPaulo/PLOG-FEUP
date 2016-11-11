@@ -7,20 +7,20 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
-  readingInput(Pawn, Direction,NewPawn,NewDirection),
+  readingInput(Pawn, _Direction,_NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, Pawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  isAStartHouse([L1|LS],Xi,Yi, OldPawnName),
+  isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit,[S1|SS]).
+  play([L1|LS], Player, Xlimit, Ylimit, _T).
 
-isAStartHouse([L1|LS],X,Y,Name):-
+isAStartHouse(X,Y,Name):-
   (X = 7, Y = 7)-> Name = startPlayer1;
-  (X = 14, Y = 7)-> Name = startPlayer1;
+  (X = 15, Y = 7)-> Name = startPlayer1;
   (X = 7, Y = 21)-> Name = startPlayer2;
-  (X = 14, Y = 21)-> Name = startPlayer2;
+  (X = 15, Y = 21)-> Name = startPlayer2;
   Name = empty.
 
 
@@ -48,7 +48,7 @@ getWinnerPosition(2,FinalPosition):-
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),
-  \+checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit),
+  \+checkBorders(Xf,Yf, Xlimit, Ylimit),
   \+isApawnPosition([L1|LS],Xf,Yf).
 
 isApawnPosition([L1|LS],Xf,Yf):-
@@ -57,7 +57,7 @@ isApawnPosition([L1|LS],Xf,Yf):-
   Element\=startPlayer1,
   Element\=startPlayer2.
 
-checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit):-
+checkBorders(Xf,Yf, Xlimit, Ylimit):-
   Xf < 1;
   Xf > Xlimit;
   Yf < 1;

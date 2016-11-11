@@ -7,13 +7,22 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
-  readingInput(Pawn, Direction,NewPawn,NewDirection),
-  transformToCoordinates([L1|LS],Player, Pawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+  readingInput(_Pawn, _Direction,NewPawn,NewDirection),
+  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  setListElement([N1|NS],Xi,Yi,1,1,empty,[M1|MS]);
+  isAStartHouse(Xi,Yi, OldPawnName),
+  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit,[S1|SS]).
+  play([L1|LS], Player, Xlimit, Ylimit, _T).
+
+isAStartHouse(X,Y,Name):-
+  (X = 7, Y = 7)-> Name = startPlayer1;
+  (X = 15, Y = 7)-> Name = startPlayer1;
+  (X = 7, Y = 21)-> Name = startPlayer2;
+  (X = 15, Y = 21)-> Name = startPlayer2;
+  Name = empty.
+
 
 verifyGameState([L1|LS],PlayerNumber,Xf,Yf):-
   isAwinner([L1|LS],PlayerNumber,Xf,Yf),
@@ -39,7 +48,7 @@ getWinnerPosition(2,FinalPosition):-
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),
-  \+checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit),
+  \+checkBorders(Xf,Yf, Xlimit, Ylimit),
   \+isApawnPosition([L1|LS],Xf,Yf).
 
 isApawnPosition([L1|LS],Xf,Yf):-
@@ -48,7 +57,7 @@ isApawnPosition([L1|LS],Xf,Yf):-
   Element\=startPlayer1,
   Element\=startPlayer2.
 
-checkBorders([L1|LS],Xf,Yf, Xlimit, Ylimit):-
+checkBorders(Xf,Yf, Xlimit, Ylimit):-
   Xf < 1;
   Xf > Xlimit;
   Yf < 1;
@@ -157,7 +166,7 @@ hasNoWall([L1|LS],dbl,Xi,Yi):-
 transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName):-
   input(Player, Pawn, PawnName),
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
-  direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf),nl.
+  direction(Direction, Xi, Yi, Xf, Yf).
 
 direction(l2, X, Y, Xf, Yf):-
   Xf is X - 4,

@@ -2,6 +2,7 @@
  :- ensure_loaded('utilitiesBoard.pl').
  :- ensure_loaded('userInput.pl').
  :- ensure_loaded('gameLogic.pl').
+ :- ensure_loaded('menus.pl').
 
 pos:-
   emptyBoard(T),

@@ -85,26 +85,6 @@ finalBoard(Board):-
            [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
            [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
-
-
-
-startGame:-
-  write('                         _____ _            _             _'),nl,
-  write('                         | ___ | |          | |           | |'),nl,
-  write('                         | |_/ / | ___   ___| | ____ _  __| | ___'),nl,
-  write('                         | ___ | |/ _ | / __| |/ / _` |/ _` |/ _ |'),nl,
-  write('                         | |_/ | | (_) | (__|   < (_| | (_| |  __/'),nl,
-  write('                         |____/|_||___/ |___|_||_|__,_||__,_||___|').
-
-
-menu:-
-  write('                           __   __                  '),nl,
-  write('                         |  ||  |'),nl,
-  write('                         | |  | | ___ _ __  _   _'),nl,
-  write('                         | |^^| |/ _ | |_ || | | |'),nl,
-  write('                         | |  | |  __/ | | | |_| |'),nl,
-  write('                         |_|  |_||___|_| |_||__._|').
-
 board_display([L1|LS]):-
  display_x_coord,
  nl, write('    ------------------------------------------------------------------------------------  '),nl,

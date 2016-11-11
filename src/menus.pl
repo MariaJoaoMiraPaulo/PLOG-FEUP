@@ -9,11 +9,15 @@ readInput(1):-
   gameLoop(T, 21, 27).
 
 readInput(2):-
+  emptyBoard(T),
+  gameLoopPlayerPc(T, 21, 27).
+
+readInput(3):-
   printHowToPlayMenu,
   read(InputHowToPlay),
   readHowToPlayInput(InputHowToPlay).
 
-readInput(3):-
+readInput(4):-
   write('Exiting...').
 
 readInput(_Input):-
@@ -45,11 +49,13 @@ printMainMenu:-
   write('        |                -----------------------------------------                |'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,
-  write('        |                                1.Start                                  |'),nl,
+  write('        |                        1.Start Player vs Player                         |'),nl,
   write('        |                                                                         |'),nl,
-  write('        |                             2.How to Play                               |'),nl,
+  write('        |                          2.Start PC vs Player                           |'),nl,
   write('        |                                                                         |'),nl,
-  write('        |                                 3.Exit                                  |'),nl,
+  write('        |                             3.How to Play                               |'),nl,
+  write('        |                                                                         |'),nl,
+  write('        |                                 4.Exit                                  |'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,

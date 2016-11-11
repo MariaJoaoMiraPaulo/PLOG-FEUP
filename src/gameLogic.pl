@@ -1,9 +1,29 @@
 gameLoop([L1|LS], Xlimit, Ylimit):-
-  nl,nl,write('----------PLAYER 1----------'),nl,nl,
+  nl,nl,player1,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
-  nl,nl,write('----------PLAYER 2----------'),nl,nl,
+  nl,nl,player2,nl,nl,
   play([N1|NS],2,Xlimit,Ylimit,[M1|MS]),
   gameLoop([M1|MS],Xlimit,Ylimit).
+
+gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
+  nl,nl,write('----------PLAYER----------'),nl,nl,
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
+  write('Click Enter ...'),nl,
+  nl,nl,write('------------PC------------'),nl,nl,
+  play([N1|NS],pc ,Xlimit,Ylimit,[M1|MS]),
+  gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
+
+play([L1|LS], pc , Xlimit, Ylimit,[M1|MS]):-
+  board_display([L1|LS]),
+  randomPawn(NewPawn),
+  randomDirection(NewDirection),
+  transformToCoordinates([L1|LS],2, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
+  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
+  isAStartHouse(Xi,Yi, OldPawnName),
+  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
+  write('Invalid play, try again'),nl,
+  play([L1|LS], Player, Xlimit, Ylimit, _T).
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),

@@ -85,6 +85,19 @@ finalBoard(Board):-
            [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
            [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
+
+
+
+player1:-
+write('                                _               _  _                                    '),nl,
+write(' ------------------------------|_) |   / | |_| |_ |_)   /|------------------------------'),nl,
+write('                               |   |_ /--|  |  |_ | |    |                              ').
+
+player2:-
+write('                                _              _  _    _                              '),nl,
+write(' ------------------------------|_) |   /| |_| |_ |_)    )------------------------------'),nl,
+write('                               |   |_ /--| |  |_ | |  /_                               ').
+
 board_display([L1|LS]):-
  display_x_coord,
  nl, write('    ------------------------------------------------------------------------------------  '),nl,

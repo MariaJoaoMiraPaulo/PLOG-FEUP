@@ -16,6 +16,9 @@ compareCoordinates(L1,Xelement,Yelement,X,Y,Element):-
   Yelement=Y,
   Element=L1.
 
+returnPosition(Name,[],X, Y, Xf, Yf):-
+  write('Dont found the element'),fail.
+
 returnPosition(Name,[L1|LS],X, Y, Xf, Yf):-
   checkLine(Name,L1,X,Y,Xf,Yf),
   Yf == Y,!;

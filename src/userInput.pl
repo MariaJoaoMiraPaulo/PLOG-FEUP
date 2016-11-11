@@ -2,9 +2,7 @@ readingInput(Pawn, Direction,NewPawn,NewDirection ):-
   readPawn(Pawn),
   validateInputPawn(Pawn, NewPawn),
   readDirection(Direction),
-  validateInputDirection(Direction, NewDirection),
-  write(NewPawn),write(': '),
-  write(NewDirection),nl,nl.
+  validateInputDirection(Direction, NewDirection).
 
 readPawn(Pawn):-
   write('Pawn you want to move( 1 , 2 ):'),nl,
@@ -17,7 +15,7 @@ validateInputPawn(2, NewPawn):-
   NewPawn=2.
 
 validateInputPawn(Pawn, NewPawn):-
-  write('Invalid input validate inpute'),nl,
+  write('Invalid pawn input'),nl,
   readPawn(AnotherTry),
   validateInputPawn(AnotherTry, NewPawn).
 
@@ -62,11 +60,11 @@ validateInputDirection(dbr, NewDirection):-
   NewDirection=dbr.
 
 validateInputDirection(Direction, NewDirection):-
-  write('Invalid input'),nl,nl,nl,
+  write('Invalid direction input'),nl,nl,nl,
   readDirection(AnotherTry),
   validateInputDirection(AnotherTry, NewDirection).
 
-input(1, 1, player11).
+input(1, 1,player11).
 input(1, 2, player12).
 input(2, 1, player21).
 input(2, 2, player22).

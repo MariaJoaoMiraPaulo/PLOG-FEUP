@@ -11,9 +11,18 @@ play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   transformToCoordinates([L1|LS],Player, Pawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  setListElement([N1|NS],Xi,Yi,1,1,empty,[M1|MS]);
+  isAStartHouse([L1|LS],Xi,Yi, OldPawnName),
+  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
   play([L1|LS], Player, Xlimit, Ylimit,[S1|SS]).
+
+isAStartHouse([L1|LS],X,Y,Name):-
+  (X = 7, Y = 7)-> Name = startPlayer1;
+  (X = 14, Y = 7)-> Name = startPlayer1;
+  (X = 7, Y = 21)-> Name = startPlayer2;
+  (X = 14, Y = 21)-> Name = startPlayer2;
+  Name = empty.
+
 
 verifyGameState([L1|LS],PlayerNumber,Xf,Yf):-
   isAwinner([L1|LS],PlayerNumber,Xf,Yf),
@@ -157,7 +166,7 @@ hasNoWall([L1|LS],dbl,Xi,Yi):-
 transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName):-
   input(Player, Pawn, PawnName),
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
-  direction(Direction, Xi, Yi, Xf, Yf),write(Xf),nl,write(Yf),nl.
+  direction(Direction, Xi, Yi, Xf, Yf).
 
 direction(l2, X, Y, Xf, Yf):-
   Xf is X - 4,

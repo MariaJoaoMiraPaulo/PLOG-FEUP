@@ -25,7 +25,7 @@ readHowToPlayInput(InputHowToPlay):-
     write('Error: invalid input.').
 
 printMainMenu:-
-  nl,nl,nl,
+  nl,nl,nl,nl,nl,nl,nl,
   write('        |-------------------------------------------------------------------------|'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,
@@ -54,7 +54,7 @@ printMainMenu:-
 
 
 printHowToPlayMenu:-
-  nl,nl,nl,
+  nl,nl,nl,nl,nl,nl,nl,
   write('        |-------------------------------------------------------------------------|'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,

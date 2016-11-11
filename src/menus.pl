@@ -1,8 +1,20 @@
-
 mainMenu:-
-	printMainMenu.
+	printMainMenu,
+  read(Input),
+  readInput(Input).
+
+readInput(1):-
+  normalBoard(T),
+  gameLoop(T, 21, 27).
+
+readInput(3):-
+  write('Exiting...').
+
+readInput(Input):-
+  write('Error: invalid input.').
 
 printMainMenu:-
+  nl,nl,nl,
   write('        |-------------------------------------------------------------------------|'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,
@@ -26,4 +38,5 @@ printMainMenu:-
   write('        |                                 3.Exit                                  |'),nl,
   write('        |                                                                         |'),nl,
   write('        |                                                                         |'),nl,
-  write('        |-------------------------------------------------------------------------| '),nl,nl,nl.
+  write('        |                           Choose an option...                           |'),nl,
+  write('        |-------------------------------------------------------------------------| '),nl,nl,nl,nl.

@@ -42,22 +42,21 @@ playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   play([L1|LS], Player, Xlimit, Ylimit, _T)
   ).
 
-%play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
-%  board_display([L1|LS]),
-%  readingInput(_Pawn, _Direction,NewPawn,NewDirection),
-%  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-%  (
-%  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
-%    trace,
-%  \+isAwinner([L1|LS],Player,Xf,Yf),
-%  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-%  isAStartHouse(Xi,Yi, OldPawnName),
-%  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
-%  (write('Invalid play, try again'),nl,
-%  play([L1|LS], Player, Xlimit, Ylimit, _T)),
-%  ).
-
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
+  board_display([L1|LS]),
+  readingInput(_Pawn, _Direction,NewPawn,NewDirection),
+  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
+  (%\+isAwinner([L1|LS],Player,Xf,Yf),
+  write('1'),
+  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),write('2'),
+  isAStartHouse(Xi,Yi, OldPawnName),write('3'),
+  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]));
+  (write('Invalid play, try again'),nl,
+  play([L1|LS], Player, Xlimit, Ylimit, _T)).
+
+/*play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
   readingInput(_Pawn, _Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
@@ -79,7 +78,7 @@ checkPlay([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit,[M1|MS]):-
   (
   write('Invalid play, try again'),nl,
   play([L1|LS], Player, Xlimit, Ylimit, _T)
-  ).
+  ).*/
 
 isAStartHouse(X,Y,Name):-
   (X = 7, Y = 7)-> Name = startPlayer1;

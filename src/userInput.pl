@@ -60,7 +60,6 @@ validateInputDirection(dbr, NewDirection):-
   NewDirection=dbr.
 
 validateInputDirection(_Direction, NewDirection):-
-  write(Direction),
   write('Invalid direction input'),nl,nl,nl,
   readDirection(AnotherTry),
   validateInputDirection(AnotherTry, NewDirection).

@@ -5,7 +5,7 @@ readingInput(Pawn, Direction,NewPawn,NewDirection ):-
   validateInputDirection(Direction, NewDirection).
 
 readPawn(Pawn):-
-  write('Pawn you want to move( 1 , 2 ):'),nl,
+  write('Which Pawn do you want to move ( 1 , 2 ):'),nl,
   read(Pawn).
 
 validateInputPawn(1, NewPawn):-
@@ -20,7 +20,7 @@ validateInputPawn(_Pawn, NewPawn):-
   validateInputPawn(AnotherTry, NewPawn).
 
 readDirection(Direction):-
-  write('Movement directions ( left->(l1 or l2), right->(r1 or r2), top->(t1 or t2), bottom->(b1 or b2), diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
+  write('Which direction do you want to take ( left->(l1 or l2), right->(r1 or r2), top->(t1 or t2), bottom->(b1 or b2), diagonalTopRight->dtr , diagonalTopLeft->dtl , diagonalBottomLeft->dbl , diagonalBottomRight->dbr)'),
   read(Direction).
 
 validateInputDirection(l1, NewDirection):-
@@ -64,7 +64,11 @@ validateInputDirection(_Direction, NewDirection):-
   readDirection(AnotherTry),
   validateInputDirection(AnotherTry, NewDirection).
 
-input(1, 1,player11).
+input(1, 1, player11).
 input(1, 2, player12).
 input(2, 1, player21).
 input(2, 2, player22).
+input(pc1, 1, player11).
+input(pc1, 2, player12).
+input(pc2, 1, player21).
+input(pc2, 2, player22).

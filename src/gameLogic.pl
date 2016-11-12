@@ -8,12 +8,36 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
-  write('Click Enter ...'),nl,
+  write('Type something to continue ...'),nl,
+  read(Lixo),
   nl,nl,pc,nl,nl,
-  play([N1|NS],pc ,Xlimit,Ylimit,[M1|MS]),
+  play([N1|NS],pc2 ,Xlimit,Ylimit,[M1|MS]),
   gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
 
-play([L1|LS], pc , Xlimit, Ylimit,[M1|MS]):-
+gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
+  nl,nl,pc,nl,nl,
+  play([L1|LS],pc1,Xlimit,Ylimit,[N1|NS]),
+  write('Type something to continue ...'),nl,
+  read(Lixo),
+  nl,nl,pc,nl,nl,
+  play([N1|NS],pc2,Xlimit,Ylimit,[M1|MS]),
+  write('Type something to continue ...'),nl,
+  read(Lixo),
+  gameLoopPcPc([M1|MS],Xlimit,Ylimit).
+
+play([L1|LS], pc1 , Xlimit, Ylimit,[M1|MS]):-
+  board_display([L1|LS]),
+  randomPawn(NewPawn),
+  randomDirection(NewDirection),
+  transformToCoordinates([L1|LS],1, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
+  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
+  isAStartHouse(Xi,Yi, OldPawnName),
+  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
+  write('Invalid play, try again'),nl,
+  play([L1|LS], pc1, Xlimit, Ylimit, _T).
+
+play([L1|LS], pc2 , Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
   randomPawn(NewPawn),
   randomDirection(NewDirection),
@@ -23,7 +47,7 @@ play([L1|LS], pc , Xlimit, Ylimit,[M1|MS]):-
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], pc, Xlimit, Ylimit, _T).
+  play([L1|LS], pc2, Xlimit, Ylimit, _T).
 
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
@@ -224,7 +248,7 @@ direction(dtr, X, Y, Xf, Yf):-
   Xf is X + 2,
   Yf is Y - 2.
 
-direction(dtL, X, Y, Xf, Yf):-
+direction(dtl, X, Y, Xf, Yf):-
   Xf is X - 2,
   Yf is Y - 2.
 

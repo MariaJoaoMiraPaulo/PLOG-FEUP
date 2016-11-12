@@ -64,7 +64,100 @@ validateInputDirection(_Direction, NewDirection):-
   readDirection(AnotherTry),
   validateInputDirection(AnotherTry, NewDirection).
 
+askingPosition(WallX,WallY):-
+  write('Position x (a....k) :'),nl,
+  read(Answer1),
+  letterCoordinateToNumber(Answer1,X),
+  transformToRealCoordinates(X,WallX),
+  write('Postion y (1....14) :'),nl,
+  read(Answer2),nl,
+  transformToRealCoordinates(Answer2,WallY).
+
+transformToRealCoordinates(ICoordinate,FCoordinate):-
+  ICoordinate=1->FCoordinate=1;
+  FCoordinate is ICoordinate*2 - 1.
+
+wallOrientation(Orientation,NewOrientation):-
+  write('Wall orientation (v or h) :'),nl,
+  read(Orientation),
+  validOrientation(Orientation,NewOrientation).
+
+validOrientation(v,NewOrientation):-
+  NewOrientation=v.
+
+validOrientation(h,NewOrientation):-
+  NewOrientation=h.
+
+validOrientation(Orientation,NewOrientation):-
+  write('Invalid Orientation, try again'),nl,
+  wallOrientation(AnotherTry,NewOrientation).
+
+wallPositionInside(v,WallPositionInside):-
+  write('You want your wall on left top, right top, left bottom , right bottom (lt , rt, lb , rb): '),nl,
+  read(Answer),
+  validPositionInside(v,Answer,WallPositionInside).
+
+wallPositionInside(h,WallPositionInside):-
+  write('You want your wall on top to the left, top to the right, bottom to the left or bottom to the right (tl, tr, bl, br): '),nl,
+  read(Answer),
+  validPositionInside(h,Answer,WallPositionInside).
+
+validPositionInside(v,lt,WallPositionInside):-
+  WallPositionInside=lt.
+
+validPositionInside(v,rt,WallPositionInside):-
+  WallPositionInside=rt.
+
+validPositionInside(v,lb,WallPositionInside):-
+  WallPositionInside=lb.
+
+validPositionInside(v,rb,WallPositionInside):-
+  WallPositionInside=rb.
+
+validPositionInside(h,tl,WallPositionInside):-
+  WallPositionInside=tl.
+
+validPositionInside(h,tr,WallPositionInside):-
+  WallPositionInside=tr.
+
+validPositionInside(h,bl,WallPositionInside):-
+ WallPositionInside=bl.
+
+validPositionInside(h,br,WallPositionInside):-
+  WallPositionInside=br.
+
+validPositionInside(Orientation,Answer,WallPositionInside):-
+  write('Invalid position inside, try again'),nl,
+  wallPositionInside(Orientation,WallPositionInside).
+
 input(1, 1, player11).
 input(1, 2, player12).
 input(2, 1, player21).
 input(2, 2, player22).
+
+letterCoordinateToNumber(a,1).
+letterCoordinateToNumber(b,2).
+letterCoordinateToNumber(c,3).
+letterCoordinateToNumber(d,4).
+letterCoordinateToNumber(e,5).
+letterCoordinateToNumber(f,6).
+letterCoordinateToNumber(g,7).
+letterCoordinateToNumber(h,8).
+letterCoordinateToNumber(i,9).
+letterCoordinateToNumber(j,10).
+letterCoordinateToNumber(k,11).
+letterCoordinateToNumber(l,12).
+letterCoordinateToNumber(m,13).
+letterCoordinateToNumber(n,14).
+letterCoordinateToNumber(o,15).
+letterCoordinateToNumber(p,16).
+letterCoordinateToNumber(q,17).
+letterCoordinateToNumber(r,18).
+letterCoordinateToNumber(s,19).
+letterCoordinateToNumber(t,20).
+letterCoordinateToNumber(u,21).
+letterCoordinateToNumber(v,22).
+letterCoordinateToNumber(w,23).
+letterCoordinateToNumber(x,24).
+letterCoordinateToNumber(y,25).
+letterCoordinateToNumber(z,26).

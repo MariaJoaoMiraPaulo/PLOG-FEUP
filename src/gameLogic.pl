@@ -243,6 +243,72 @@ transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
   direction(Direction, Xi, Yi, Xf, Yf).
 
+wall([L1|LS],[N1|NS]):-
+  write('Do you want to put a wall ( y or n ): '),nl,
+  read(Answer),
+  Answer=y->
+    ( askingPosition(WallX,WallY),
+      wallOrientation(Orientation,NewOrientation),
+      wallPositionInside(NewOrientation,WallPositionInside),
+      wallCoordinates(NewOrientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
+      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS])).
+
+writeWallOnBoard([L1|LS],v,FirstX,FirstY,SecondX,SecondY,[M1|MS]):-
+    setListElement([L1|LS],FirstX,FirstY,1,1,verticalwall,[N1|NS]),
+    setListElement([N1|NS],SecondX,SecondY,1,1,verticalwall,[M1|MS]).
+
+writeWallOnBoard([L1|LS],h,FirstX,FirstY,SecondX,SecondY,[M1|MS]):-
+    setListElement([L1|LS],FirstX,FirstY,1,1,wall,[N1|NS]),
+    setListElement([N1|NS],SecondX,SecondY,1,1,wall,[M1|MS]).
+
+wallCoordinates(v,lt,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX-1,
+  FirstY is WallY,
+  SecondX is WallX-1,
+  SecondY is WallY-2.
+
+wallCoordinates(v,rt,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX+1,
+  FirstY is WallY,
+  SecondX is WallX+1,
+  SecondY is WallY-2.
+
+wallCoordinates(v,lb,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX-1,
+  FirstY is WallY,
+  SecondX is WallX-1,
+  SecondY is WallY+2.
+
+wallCoordinates(v,rb,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX+1,
+  FirstY is WallY,
+  SecondX is WallX+1,
+  SecondY is WallY+2.
+
+wallCoordinates(h,tl,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX,
+  FirstY is WallY-1,
+  SecondX is WallX-2,
+  SecondY is WallY-1.
+
+wallCoordinates(h,tr,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX,
+  FirstY is WallY-1,
+  SecondX is WallX+2,
+  SecondY is WallY-1.
+
+wallCoordinates(h,bl,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX,
+  FirstY is WallY+1,
+  SecondX is WallX-2,
+  SecondY is WallY+1.
+
+wallCoordinates(h,br,WallX,WallY,FirstX,FirstY,SecondX,SecondY):-
+  FirstX is WallX,
+  FirstY is WallY+1,
+  SecondX is WallX+2,
+  SecondY is WallY+1.
+
 direction(l2, X, Y, Xf, Yf):-
   Xf is X - 4,
   Yf is Y.

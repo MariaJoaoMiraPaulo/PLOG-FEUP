@@ -88,9 +88,9 @@ validOrientation(v,NewOrientation):-
 validOrientation(h,NewOrientation):-
   NewOrientation=h.
 
-validOrientation(Orientation,NewOrientation):-
+validOrientation(_Orientation,NewOrientation):-
   write('Invalid Orientation, try again'),nl,
-  wallOrientation(AnotherTry,NewOrientation).
+  wallOrientation(_AnotherTry,NewOrientation).
 
 wallPositionInside(v,WallPositionInside):-
   write('You want your wall on left top, right top, left bottom , right bottom (lt , rt, lb , rb): '),nl,
@@ -126,7 +126,7 @@ validPositionInside(h,bl,WallPositionInside):-
 validPositionInside(h,br,WallPositionInside):-
   WallPositionInside=br.
 
-validPositionInside(Orientation,Answer,WallPositionInside):-
+validPositionInside(Orientation,_Answer,WallPositionInside):-
   write('Invalid position inside, try again'),nl,
   wallPositionInside(Orientation,WallPositionInside).
 

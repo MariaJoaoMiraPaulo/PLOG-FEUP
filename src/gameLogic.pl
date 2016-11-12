@@ -2,21 +2,29 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1),
   Over1=0->
-    (nl,nl,player2,nl,nl,
-    play([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2),
-    Over2=0->
-    gameLoop([M1|MS],Xlimit,Ylimit);
-    write('PLAYER 2 WINS!!!'));
-  write('PLAYER 1 WINS!!!').
+    (
+      nl,nl,player2,nl,nl,
+      play([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2),
+      Over2=0->
+        gameLoop([M1|MS],Xlimit,Ylimit);
+        write('PLAYER 2 WINS!!!')
+    );
+    write('PLAYER 1 WINS!!!').
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
-  play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
-  write('Type something to continue ...'),nl,
-  read(_Lixo),
-  nl,nl,pc,nl,nl,
-  playBot([N1|NS],2 ,Xlimit,Ylimit,[M1|MS]),
-  gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1),
+  Over1=0->
+    (
+      write('Type something to continue ...'),nl,
+      read(_Lixo),
+      nl,nl,pc,nl,nl,
+      playBot([N1|NS],2 ,Xlimit,Ylimit,[M1|MS],Over2),
+      Over2=0->
+        gameLoopPlayerPc([M1|MS],Xlimit,Ylimit);
+        write('BOT WINS!!!')
+    );
+    write('PLAYER WINS!!!!').
 
 gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,pc,nl,nl,
@@ -29,19 +37,32 @@ gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
   read(_Lixo2),
   gameLoopPcPc([M1|MS],Xlimit,Ylimit).
 
-playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
+playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS],Over):-
   board_display([L1|LS]),
   randomPawn(NewPawn),
   randomDirection(NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-  (
+
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
-  %isAwinner([L1|LS],Player,Xf,Yf),
-  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  isAStartHouse(Xi,Yi, OldPawnName),
-  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
-  write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit, _T)
+  (
+    (\+isAwinner([L1|LS],Player,Xf,Yf)->
+      (
+        Over=0,
+        setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS])
+      );
+      (
+        Over=1,
+        winnerName(1,WinnerName),
+        setListElement([L1|LS],Xf,Yf,1,1,WinnerName,[N1|NS])
+      )
+    ),
+    isAStartHouse(Xi,Yi, OldPawnName),
+    setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS])
+    %wall([M1|MS],Xlimit,Ylimit,[T1|TS])
+  );
+  (
+    write('Invalid play, try again'),nl,
+    play([L1|LS], Player, Xlimit, Ylimit, _T)
   ).
 
 play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
@@ -64,10 +85,12 @@ play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
     ),
     isAStartHouse(Xi,Yi, OldPawnName),
     setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]),
-    wall([M1|MS],Xlimit,Ylimit,[T1|TS])
+    (Over=0->wall([M1|MS],Xlimit,Ylimit,[T1|TS]))
   );
-  (write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit, _T)).
+  (
+    write('Invalid play, try again'),nl,
+    play([L1|LS], Player, Xlimit, Ylimit, _T)
+  ).
 
 /*play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
@@ -256,7 +279,7 @@ wall([L1|LS],Xlimit,Ylimit,[N1|NS]):-
   Answer=y->
     (
       askingPosition(WallX,WallY),
-      wallOrientation(Orientation,NewOrientation),
+      wallOrientation(_Orientation,NewOrientation),
       wallPositionInside(NewOrientation,WallPositionInside),
       wallCoordinates(NewOrientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
       validatePositions([L1|LS],NewOrientation,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY)->

@@ -34,7 +34,7 @@ playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   (
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
-  %verifyGameState([L1|LS],Player,Xf,Yf),
+  %isAwinner([L1|LS],Player,Xf,Yf),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
@@ -42,16 +42,41 @@ playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   play([L1|LS], Player, Xlimit, Ylimit, _T)
   ).
 
+%play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
+%  board_display([L1|LS]),
+%  readingInput(_Pawn, _Direction,NewPawn,NewDirection),
+%  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+%  (
+%  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
+%    trace,
+%  \+isAwinner([L1|LS],Player,Xf,Yf),
+%  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
+%  isAStartHouse(Xi,Yi, OldPawnName),
+%  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
+%  (write('Invalid play, try again'),nl,
+%  play([L1|LS], Player, Xlimit, Ylimit, _T)),
+%  ).
+
 play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
   readingInput(_Pawn, _Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-  (
+  checkPlay([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit,[M1|MS]).
+
+%REFORMULAR
+checkPlay([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit,[M1|MS]):-
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
-  %verifyGameState([L1|LS],Player,Xf,Yf),
-  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  isAStartHouse(Xi,Yi, OldPawnName),
-  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
+  (
+    write('1'),
+    \+isAwinner([L1|LS],Player,Xf,Yf),
+    write('2'),
+    setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
+    write('3'),
+    isAStartHouse(Xi,Yi, OldPawnName),
+    write('4'),
+    setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]),!
+  );
+  (
   write('Invalid play, try again'),nl,
   play([L1|LS], Player, Xlimit, Ylimit, _T)
   ).
@@ -63,28 +88,32 @@ isAStartHouse(X,Y,Name):-
   (X = 15, Y = 21)-> Name = startPlayer2;
   Name = empty.
 
-
-verifyGameState([L1|LS],PlayerNumber,Xf,Yf,Over):-
-  isAwinner([L1|LS],PlayerNumber,Xf,Yf,Over),
-  winner(PlayerNumber).
-
-winner(1):-
-  write('PLAYER 1, YOU WIN!!!').
-
-winner(2):-
-  write('PLAYER 2, YOU WIN!!!').
-
 isAwinner([L1|LS],PlayerNumber,Xf,Yf):-
+  nl,nl,write('verificar estado Jogo'),nl,nl,
   getWinnerPosition(PlayerNumber,FinalPosition),
-  write(FinalPosition).
-  getListElement([L1|LS],Xf,Yf,1,1,Element),
-  Element=:=FinalPosition.
+  write(FinalPosition),
+  getListElement([L1|LS],Xf,Yf,1,1,NewElement),
+  write(NewElement),
+  NewElement==FinalPosition,
+  write('VAI GANHAR').
+  %isAwinner([L1|LS],PlayerNumber,Xf,Yf,Over),
+  %winner(PlayerNumber).
 
 getWinnerPosition(1,FinalPosition):-
   FinalPosition=startPlayer2.
 
 getWinnerPosition(2,FinalPosition):-
   FinalPosition=startPlayer1.
+
+%isAwinner([L1|LS],PlayerNumber,Xf,Yf,Element):-
+%  getListElement([L1|LS],Xf,Yf,1,1,NewElement),
+%  NewElement=:=Element.
+
+winner(1):-
+  write('PLAYER 1, YOU WIN!!!').
+
+winner(2):-
+  write('PLAYER 2, YOU WIN!!!').
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),

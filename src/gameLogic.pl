@@ -10,7 +10,7 @@ gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
   write('Type something to continue ...'),nl,
-  read(Lixo),
+  read(_Lixo),
   nl,nl,pc,nl,nl,
   play([N1|NS],pc2 ,Xlimit,Ylimit,[M1|MS]),
   gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
@@ -19,11 +19,11 @@ gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,pc,nl,nl,
   play([L1|LS],pc1,Xlimit,Ylimit,[N1|NS]),
   write('Type something to continue ...'),nl,
-  read(Lixo),
+  read(_Lixo),
   nl,nl,pc,nl,nl,
   play([N1|NS],pc2,Xlimit,Ylimit,[M1|MS]),
   write('Type something to continue ...'),nl,
-  read(Lixo),
+  read(_Lixo2),
   gameLoopPcPc([M1|MS],Xlimit,Ylimit).
 
 play([L1|LS], pc1 , Xlimit, Ylimit,[M1|MS]):-

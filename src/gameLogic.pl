@@ -37,7 +37,7 @@ gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
   read(_Lixo2),
   gameLoopPcPc([M1|MS],Xlimit,Ylimit).
 
-playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS],Over):-
+playBot([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
   board_display([L1|LS]),
   randomPawn(NewPawn),
   randomDirection(NewDirection),
@@ -57,8 +57,8 @@ playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS],Over):-
       )
     ),
     isAStartHouse(Xi,Yi, OldPawnName),
-    setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS])
-    %wall([M1|MS],Xlimit,Ylimit,[T1|TS])
+    setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]),
+    (Over=0->wallBot([M1|MS],Xlimit,Ylimit,[T1|TS]))
   );
   (
     write('Invalid play, try again'),nl,
@@ -72,15 +72,15 @@ play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
 
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
   (
-    (\+isAwinner([L1|LS],Player,Xf,Yf)->
-      (
-        Over=0,
-        setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS])
-      );
+    (isAwinner([L1|LS],Player,Xf,Yf)->
       (
         Over=1,
         winnerName(1,WinnerName),
         setListElement([L1|LS],Xf,Yf,1,1,WinnerName,[N1|NS])
+      );
+      (
+        Over=0,
+        setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS])
       )
     ),
     isAStartHouse(Xi,Yi, OldPawnName),
@@ -286,7 +286,27 @@ wall([L1|LS],Xlimit,Ylimit,[N1|NS]):-
       writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]);
       (
         write('Invalid wall position, try again'),nl,
-        wall([L1|LS],[N1|NS])
+        wall([L1|LS],Xlimit,Ylimit,[N1|NS])
+      )
+    );
+    (
+      N1=L1,
+      LS=NS
+    ).
+
+wallBot([L1|LS],Xlimit,Ylimit,[N1|NS]):-
+  randomWallAnswer(Answer),
+  Answer=y->
+    (
+      randomWallPosition(Xlimit,Ylimit,WallX,WallY),
+      randomOrientation(Orientation),
+      randomPositionInside(Orientation,WallPositionInside),
+      wallCoordinates(Orientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
+      validatePositions([L1|LS],NewOrientation,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY)->
+      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]);
+      (
+        write('Invalid wall position, try again'),nl,
+        wall([L1|LS],Xlimit,Ylimit,[N1|NS])
       )
     );
     (

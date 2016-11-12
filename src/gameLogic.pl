@@ -243,15 +243,43 @@ transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
   direction(Direction, Xi, Yi, Xf, Yf).
 
-wall([L1|LS],[N1|NS]):-
+wall([L1|LS],Xlimit,Ylimit,[N1|NS]):-
   write('Do you want to put a wall ( y or n ): '),nl,
   read(Answer),
   Answer=y->
-    ( askingPosition(WallX,WallY),
+    (
+      askingPosition(WallX,WallY),
       wallOrientation(Orientation,NewOrientation),
       wallPositionInside(NewOrientation,WallPositionInside),
       wallCoordinates(NewOrientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
-      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS])).
+      validatePositions([L1|LS],NewOrientation,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY)->
+      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]);
+      (
+        write('Invalid wall position, try again'),nl,
+        wall([L1|LS],[N1|NS])
+      )
+    );
+    (
+      N1=L1,
+      LS=NS
+    ).
+
+validatePositions([L1|LS],v,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY):-
+    \+checkBorders(FirstX,FirstY,Xlimit,Ylimit),
+    \+checkBorders(SecondX,SecondY,Xlimit,Ylimit),
+    getListElement([L1|LS],FirstX,FirstY,1,1,Element1),
+    Element1=noVerticalWall,
+    getListElement([L1|LS],SecondX,SecondY,1,1,Element2),
+    Element2=noVerticalWall.
+
+  validatePositions([L1|LS],h,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY):-
+    \+checkBorders(FirstX,FirstY,Xlimit,Ylimit),
+    \+checkBorders(SecondX,SecondY,Xlimit,Ylimit),
+    getListElement([L1|LS],FirstX,FirstY,1,1,Element1),
+    Element1=noWall,
+    getListElement([L1|LS],SecondX,SecondY,1,1,Element2),
+    Element2=noWall.
+
 
 writeWallOnBoard([L1|LS],v,FirstX,FirstY,SecondX,SecondY,[M1|MS]):-
     setListElement([L1|LS],FirstX,FirstY,1,1,verticalwall,[N1|NS]),

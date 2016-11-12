@@ -161,5 +161,5 @@ display_y_coord(Y, X1, X2):-
  traduz(player22,' X2 ').
  traduz(player12,' O2 ').
  traduz(player11,' O1 ').
- traduz(winnerplayer21,' Xw ').
- traduz(winnerplayer12,' Yw ').
+ traduz(winnerplayer2,' Xw ').
+ traduz(winnerplayer1,' Ow ').

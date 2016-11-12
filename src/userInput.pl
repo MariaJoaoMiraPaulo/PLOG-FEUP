@@ -68,7 +68,3 @@ input(1, 1, player11).
 input(1, 2, player12).
 input(2, 1, player21).
 input(2, 2, player22).
-input(pc1, 1, player11).
-input(pc1, 2, player12).
-input(pc2, 1, player21).
-input(pc2, 2, player22).

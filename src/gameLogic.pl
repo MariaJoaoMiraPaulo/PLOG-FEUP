@@ -1,9 +1,10 @@
 gameLoop([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
-  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],OverPlayer1),
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
   nl,nl,player2,nl,nl,
-  play([N1|NS],2,Xlimit,Ylimit,[M1|MS],OverPlayer2),
-  %(OverPlayer1=1;OverPlayer2=1),!;
+  play([N1|NS],2,Xlimit,Ylimit,[M1|MS]),
+%  (OverPlayer1 =:= 1- !);
+%  (OverPlayer2 =:= 1, !);
   gameLoop([M1|MS],Xlimit,Ylimit).
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
@@ -12,57 +13,48 @@ gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
   write('Type something to continue ...'),nl,
   read(_Lixo),
   nl,nl,pc,nl,nl,
-  play([N1|NS],pc2 ,Xlimit,Ylimit,[M1|MS]),
+  playBot([N1|NS],2 ,Xlimit,Ylimit,[M1|MS]),
   gameLoopPlayerPc([M1|MS],Xlimit,Ylimit).
 
 gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
   nl,nl,pc,nl,nl,
-  play([L1|LS],pc1,Xlimit,Ylimit,[N1|NS]),
+  playBot([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
   write('Type something to continue ...'),nl,
   read(_Lixo),
   nl,nl,pc,nl,nl,
-  play([N1|NS],pc2,Xlimit,Ylimit,[M1|MS]),
+  playBot([N1|NS],2,Xlimit,Ylimit,[M1|MS]),
   write('Type something to continue ...'),nl,
   read(_Lixo2),
   gameLoopPcPc([M1|MS],Xlimit,Ylimit).
 
-play([L1|LS], pc1 , Xlimit, Ylimit,[M1|MS]):-
+playBot([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
   randomPawn(NewPawn),
   randomDirection(NewDirection),
-  transformToCoordinates([L1|LS],1, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
+  transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
+  (
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
+  %verifyGameState([L1|LS],Player,Xf,Yf),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], pc1, Xlimit, Ylimit, _T).
+  play([L1|LS], Player, Xlimit, Ylimit, _T)
+  ).
 
-play([L1|LS], pc2 , Xlimit, Ylimit,[M1|MS]):-
-  board_display([L1|LS]),
-  randomPawn(NewPawn),
-  randomDirection(NewDirection),
-  transformToCoordinates([L1|LS],2, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
-  setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
-  isAStartHouse(Xi,Yi, OldPawnName),
-  setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
-  write('Invalid play, try again'),nl,
-  play([L1|LS], pc2, Xlimit, Ylimit, _T).
-
-play([L1|LS], Player, Xlimit, Ylimit,[M1|MS],Over):-
+play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
   board_display([L1|LS]),
   readingInput(_Pawn, _Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
-  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
-  (verifyGameState([L1|LS],Player,Xf,Yf),
-  Over=1;
-  Over=0),
+  (
+  isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit)->
+  %verifyGameState([L1|LS],Player,Xf,Yf),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);
   write('Invalid play, try again'),nl,
-  play([L1|LS], Player, Xlimit, Ylimit, _T).
+  play([L1|LS], Player, Xlimit, Ylimit, _T)
+  ).
 
 isAStartHouse(X,Y,Name):-
   (X = 7, Y = 7)-> Name = startPlayer1;
@@ -72,8 +64,8 @@ isAStartHouse(X,Y,Name):-
   Name = empty.
 
 
-verifyGameState([L1|LS],PlayerNumber,Xf,Yf):-
-  isAwinner([L1|LS],PlayerNumber,Xf,Yf),
+verifyGameState([L1|LS],PlayerNumber,Xf,Yf,Over):-
+  isAwinner([L1|LS],PlayerNumber,Xf,Yf,Over),
   winner(PlayerNumber).
 
 winner(1):-
@@ -84,15 +76,15 @@ winner(2):-
 
 isAwinner([L1|LS],PlayerNumber,Xf,Yf):-
   getWinnerPosition(PlayerNumber,FinalPosition),
+  write(FinalPosition).
   getListElement([L1|LS],Xf,Yf,1,1,Element),
-  Element==FinalPosition.
+  Element=:=FinalPosition.
 
 getWinnerPosition(1,FinalPosition):-
   FinalPosition=startPlayer2.
 
 getWinnerPosition(2,FinalPosition):-
   FinalPosition=startPlayer1.
-
 
 isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,Direction, Xlimit, Ylimit):-
   hasNoWall([L1|LS],Direction,Xi,Yi),

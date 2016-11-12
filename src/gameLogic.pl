@@ -3,7 +3,7 @@ gameLoop([L1|LS], Xlimit, Ylimit):-
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS],OverPlayer1),
   nl,nl,player2,nl,nl,
   play([N1|NS],2,Xlimit,Ylimit,[M1|MS],OverPlayer2),
-  (OverPlayer1=1;OverPlayer2=1),!;
+  %(OverPlayer1=1;OverPlayer2=1),!;
   gameLoop([M1|MS],Xlimit,Ylimit).
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-

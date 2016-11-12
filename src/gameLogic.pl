@@ -1,8 +1,9 @@
 gameLoop([L1|LS], Xlimit, Ylimit):-
   nl,nl,player1,nl,nl,
-  play([L1|LS],1,Xlimit,Ylimit,[N1|NS]),
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],OverPlayer1),
   nl,nl,player2,nl,nl,
-  play([N1|NS],2,Xlimit,Ylimit,[M1|MS]),
+  play([N1|NS],2,Xlimit,Ylimit,[M1|MS],OverPlayer2),
+  (OverPlayer1=1;OverPlayer2=1),!;
   gameLoop([M1|MS],Xlimit,Ylimit).
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
@@ -49,11 +50,14 @@ play([L1|LS], pc2 , Xlimit, Ylimit,[M1|MS]):-
   write('Invalid play, try again'),nl,
   play([L1|LS], pc2, Xlimit, Ylimit, _T).
 
-play([L1|LS], Player, Xlimit, Ylimit,[M1|MS]):-
+play([L1|LS], Player, Xlimit, Ylimit,[M1|MS],Over):-
   board_display([L1|LS]),
   readingInput(_Pawn, _Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
   isAvalidMove([L1|LS],Xi,Yi,Xf,Yf,NewDirection, Xlimit, Ylimit),
+  (verifyGameState([L1|LS],Player,Xf,Yf),
+  Over=1;
+  Over=0),
   setListElement([L1|LS],Xf,Yf,1,1,PawnName,[N1|NS]),
   isAStartHouse(Xi,Yi, OldPawnName),
   setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]);

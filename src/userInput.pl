@@ -67,11 +67,56 @@ validateInputDirection(_Direction, NewDirection):-
 askingPosition(WallX,WallY):-
   write('Position x (a....k) :'),nl,
   read(Answer1),
-  letterCoordinateToNumber(Answer1,X),
+  validateInputPosition(Answer1,NewAnswer),
+  letterCoordinateToNumber(NewAnswer,X),
   transformToRealCoordinates(X,WallX),
   write('Postion y (1....14) :'),nl,
   read(Answer2),nl,
+  validateInputPosition2(Answer2),
+  %validateAnswer2
   transformToRealCoordinates(Answer2,WallY).
+
+validateInputPosition2(Answer2):-
+  Answer2 >= 1,
+  Answer2 =< 14.
+
+validateInputPosition(a,NewAnswer):-
+  NewAnswer = a.
+
+validateInputPosition(b,NewAnswer):-
+  NewAnswer = b.
+
+validateInputPosition(c,NewAnswer):-
+  NewAnswer = c.
+
+validateInputPosition(d,NewAnswer):-
+  NewAnswer = d.
+
+validateInputPosition(e,NewAnswer):-
+  NewAnswer = e.
+
+validateInputPosition(f,NewAnswer):-
+  NewAnswer = f.
+
+validateInputPosition(g,NewAnswer):-
+  NewAnswer = g.
+
+validateInputPosition(h,NewAnswer):-
+  NewAnswer = h.
+
+validateInputPosition(i,NewAnswer):-
+  NewAnswer = i.
+
+validateInputPosition(j,NewAnswer):-
+  NewAnswer = j.
+
+validateInputPosition(k,NewAnswer):-
+  NewAnswer = k.
+
+validateInputPosition(_Answer1,NewAnswer):-
+  write('Invalid position input'),nl,nl,nl,
+  read(AnotherTry),
+  validateInputPosition(AnotherTry, NewDirection).
 
 transformToRealCoordinates(ICoordinate,FCoordinate):-
   ICoordinate=1->FCoordinate=1;

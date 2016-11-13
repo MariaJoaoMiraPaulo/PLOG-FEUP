@@ -116,7 +116,7 @@ newBoard(Board):-
             [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
             [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]].
 
-newBoard(Board):-
+newNormalBoard(Board):-
   Board = [[e,nVw,e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e],
            [nW,n, nW,n, nW, n, nW, n,  nW, n,  nW,n,  nW, n, nW, n, nW, n, nW,n, nW],
            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw,e,nVw, e,nVw, e],

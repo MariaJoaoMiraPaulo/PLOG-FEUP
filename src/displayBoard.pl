@@ -116,6 +116,35 @@ newBoard(Board):-
             [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
             [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]].
 
+newBoard(Board):-
+  Board = [[e,nVw,e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e],
+           [nW,n, nW,n, nW, n, nW, n,  nW, n,  nW,n,  nW, n, nW, n, nW, n, nW,n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw,e,nVw, e,nVw, e],
+           [nW,n, nW,n, nW, n, nW,n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e, nVw,e, nVw,e, nVw,sP1, nVw,e,nVw, e, nVw,e,nVw, sP1,nVw, e,nVw, e, nVw,e],
+           [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, W, n, W, n, nW, n, nW],
+           [e,nVw, e,nVw, e,vW, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, p12, nW, n, nW],
+           [e,nVw, e,nVw, e,vW, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n,  W, n,  W, n,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, p21,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,vW, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, p11,nVw, e,nVw, e,nVw, e,nVw, e,vW, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n,  nW,  n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, p22,nVw, e],
+           [nW, n, nW, n, nW, n, W, n,  W, n,  nW, n,  nW, n, W, n, nW, n, W, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,vW, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+           [e, nVw,e, nVw,e, nVw,sP2, nVw,e,nVw, e, vW,e,nVw, sP2,nVw, e,nVw, e, nVw,e],
+           [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW,e,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+           [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+           [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]].
+
 newFinalBoard(Board):-
               Board=[[e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
               [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],

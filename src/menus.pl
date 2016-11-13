@@ -10,13 +10,17 @@ readInput(1):-
   gameLoop(T, 21, 27,0,0).
 
 readInput(2):-
-	write('Choose dificulty of Bot(1->Normal or 2->Difficulty) :'),nl,
+	write('Choose difficulty of Bot(1->Normal or 2->Difficulty) :'),nl,
 	read(Input),
 	readInputBotDifficulty(Input).
 
 readInput(3):-
+	write('Choose difficulty of 1ºBot(1->Normal or 2->Difficulty) :'),nl,
+	read(FirstDiff),
+	write('Choose difficulty of 2ºBot(1->Normal or 2->Difficulty) :'),nl,
+	read(SecondDiff),
 	emptyBoard(T),
-	gameLoopPcPc(T, 21, 27,0,0).
+	gameLoopPcPc(T, FirstDiff, SecondDiff,	21, 27,0,0).
 
 readInput(4):-
   printHowToPlayMenu,

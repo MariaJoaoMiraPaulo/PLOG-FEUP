@@ -32,20 +32,29 @@ gameLoopPlayerPc([L1|LS], Bot,Xlimit, Ylimit, WallsPlayer, WallsBot):-
   );
   write('PLAYER WINS!!!!').
 
-gameLoopPcPc([L1|LS], Xlimit, Ylimit,WallsBot1, WallsBot2):-
+gameLoopPcPc([L1|LS], FirstDifficulty, SecondDifficulty,Xlimit, Ylimit,WallsBot1, WallsBot2):-
   nl,nl,pc1,nl,nl,
-  playBot([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsBot1,NewWallsBot1),
+  (
+    FirstDifficulty=2->
+      playBotSecondDifficulty([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsBot1,NewWallsBot1);
+      playBot([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsBot1,NewWallsBot1)
+  ),
+
   Over1=0->
     (
       write('Type something to continue ...'),nl,
       read(_Lixo),
       nl,nl,pc2,nl,nl,
-      playBot([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2,WallsBot2,NewWallsBot2),
+      (
+        SecondDifficulty=2->
+          playBotSecondDifficulty([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2,WallsBot2,NewWallsBot2);
+          playBot([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2,WallsBot2,NewWallsBot2)
+      ),
       Over2=0->
         (
           write('Type something to continue ...'),nl,
           read(_Lixo2),
-          gameLoopPcPc([M1|MS],Xlimit,Ylimit,NewWallsBot1,NewWallsBot2)
+          gameLoopPcPc([M1|MS], FirstDifficulty, SecondDifficulty,Xlimit,Ylimit,NewWallsBot1,NewWallsBot2)
         );
         write('BOT 2 WINS!!!!')
     );

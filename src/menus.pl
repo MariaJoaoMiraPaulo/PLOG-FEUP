@@ -9,8 +9,9 @@ readInput(1):-
   gameLoop(T, 21, 27,0,0).
 
 readInput(2):-
-  emptyBoard(T),
-  gameLoopPlayerPc(T, 21, 27,0,0).
+	write('Bot more difficulty (y or n):'),nl,
+	read(Input),
+	readInputBotDifficulty(Input).
 
 readInput(3):-
 	emptyBoard(T),
@@ -26,6 +27,14 @@ readInput(5):-
 
 readInput(_Input):-
   write('Error: invalid input.').
+
+readInputBotDifficulty(y):-
+	emptyBoard(T),
+  gameLoopPlayerPc(T,y,21,27,0,0).
+
+readInputBotDifficulty(_Input):-
+	emptyBoard(T),
+	gameLoopPlayerPc(T,n,21,27,0,0).
 
 readHowToPlayInput(1):-
     mainMenu.

@@ -1,51 +1,51 @@
-gameLoop([L1|LS], Xlimit, Ylimit):-
+gameLoop([L1|LS], Xlimit, Ylimit, WallsPlayer1, WallsPlayer2):-
   nl,nl,player1,nl,nl,
-  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1),
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsPlayer1,NewWallsPlayer1),
   Over1=0->
     (
       nl,nl,player2,nl,nl,
-      play([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2),
+      play([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2,WallsPlayer2,NewWallsPlayer2),
       Over2=0->
-        gameLoop([M1|MS],Xlimit,Ylimit);
+        gameLoop([M1|MS],Xlimit,Ylimit,NewWallsPlayer1,NewWallsPlayer2);
         write('PLAYER 2 WINS!!!')
     );
     write('PLAYER 1 WINS!!!').
 
-gameLoopPlayerPc([L1|LS], Xlimit, Ylimit):-
+gameLoopPlayerPc([L1|LS], Xlimit, Ylimit, WallsPlayer, WallsBot):-
   nl,nl,player1,nl,nl,
-  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1),
+  play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsPlayer,NewWallsPlayer),
   Over1=0->
     (
       write('Type something to continue ...'),nl,
       read(_Lixo),
       nl,nl,pc,nl,nl,
-      playBot([N1|NS],2 ,Xlimit,Ylimit,[M1|MS],Over2),
+      playBot([N1|NS],2 ,Xlimit,Ylimit,[M1|MS],Over2,WallsBot,NewWallsBot),
       Over2=0->
-        gameLoopPlayerPc([M1|MS],Xlimit,Ylimit);
+        gameLoopPlayerPc([M1|MS],Xlimit,Ylimit,NewWallsPlayer,NewWallsBot);
         write('BOT WINS!!!')
     );
     write('PLAYER WINS!!!!').
 
-gameLoopPcPc([L1|LS], Xlimit, Ylimit):-
+gameLoopPcPc([L1|LS], Xlimit, Ylimit,WallsBot1, WallsBot2):-
   nl,nl,pc1,nl,nl,
-  playBot([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1),
+  playBot([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsBot1,NewWallsBot1),
   Over1=0->
     (
       write('Type something to continue ...'),nl,
       read(_Lixo),
       nl,nl,pc2,nl,nl,
-      playBot([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2),
+      playBot([N1|NS],2,Xlimit,Ylimit,[M1|MS],Over2,WallsBot2,NewWallsBot2),
       Over2=0->
         (
           write('Type something to continue ...'),nl,
           read(_Lixo2),
-          gameLoopPcPc([M1|MS],Xlimit,Ylimit)
+          gameLoopPcPc([M1|MS],Xlimit,Ylimit,NewWallsBot1,NewWallsBot2)
         );
         write('BOT 2 WINS!!!!')
     );
     write('BOT 1 WINS!!!!').
 
-playBot([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
+playBot([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over,WallsBot,NewWallsBot):-
   board_display([L1|LS]),
   randomPawn(NewPawn),
   randomDirection(NewDirection),
@@ -66,14 +66,26 @@ playBot([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
     ),
     isAStartHouse(Xi,Yi, OldPawnName),
     setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]),
-    (Over=0->wallBot([M1|MS],Xlimit,Ylimit,[T1|TS]))
+    (
+      Over=0->
+        (
+          WallsBot<9->
+          (wallBot([M1|MS],Xlimit,Ylimit,[T1|TS],WallsBot,NewWallsBot));
+          (
+          write('Already reached the max number of walls'),nl,
+          NewWallsBot is WallsBot,
+          T1=M1,
+          TS=MS
+          )
+        )
+    )
   );
   (
     write('Invalid play, try again'),nl,
-    playBot([L1|LS], Player, Xlimit, Ylimit, _T)
+    playBot([L1|LS], Player, Xlimit, Ylimit, _T,WallsBot,NewWallsBot)
   ).
 
-play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
+play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over,WallsPlayer,NewWallsPlayer):-
   board_display([L1|LS]),
   readingInput(_Pawn, _Direction,NewPawn,NewDirection),
   transformToCoordinates([L1|LS],Player, NewPawn, NewDirection,Xi, Yi, Xf, Yf, PawnName),
@@ -93,11 +105,23 @@ play([L1|LS], Player, Xlimit, Ylimit,[T1|TS],Over):-
     ),
     isAStartHouse(Xi,Yi, OldPawnName),
     setListElement([N1|NS],Xi,Yi,1,1,OldPawnName,[M1|MS]),
-    (Over=0->wall([M1|MS],Xlimit,Ylimit,[T1|TS]))
+    (
+      Over=0->
+        (
+          WallsPlayer<9->
+            (wall([M1|MS],Xlimit,Ylimit,[T1|TS],WallsPlayer,NewWallsPlayer));
+            (
+              write('Already reached the max number of walls'),nl,
+              NewWallsPlayer is WallsPlayer,
+              T1=M1,
+              TS=MS
+            )
+        )
+    )
   );
   (
     write('Invalid play, try again'),nl,
-    play([L1|LS], Player, Xlimit, Ylimit, _T)
+    play([L1|LS], Player, Xlimit, Ylimit, _T,WallsPlayer,NewWallsPlayer)
   ).
 
 isAStartHouse(X,Y,Name):-
@@ -257,7 +281,7 @@ transformToCoordinates([L1|LS], Player, Pawn, Direction, Xi, Yi, Xf, Yf,PawnName
   returnPosition(PawnName, [L1|LS], 1, 1, Xi, Yi),
   direction(Direction, Xi, Yi, Xf, Yf).
 
-wall([L1|LS],Xlimit,Ylimit,[N1|NS]):-
+wall([L1|LS],Xlimit,Ylimit,[N1|NS],WallsPlayer,NewWallsPlayer):-
   write('Do you want to put a wall ( y or n ): '),nl,
   read(Answer),
   Answer=y->
@@ -267,18 +291,22 @@ wall([L1|LS],Xlimit,Ylimit,[N1|NS]):-
       wallPositionInside(NewOrientation,WallPositionInside),
       wallCoordinates(NewOrientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
       validatePositions([L1|LS],NewOrientation,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY)->
-      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]);
+      (
+        writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]),
+        NewWallsPlayer is WallsPlayer+1
+      );
       (
         write('Invalid wall position, try again'),nl,
-        wall([L1|LS],Xlimit,Ylimit,[N1|NS])
+        wall([L1|LS],Xlimit,Ylimit,[N1|NS],WallsPlayer,NewWallsPlayer)
       )
     );
     (
       N1=L1,
-      LS=NS
+      LS=NS,
+      NewWallsPlayer=WallsPlayer
     ).
 
-wallBot([L1|LS],Xlimit,Ylimit,[N1|NS]):-
+wallBot([L1|LS],Xlimit,Ylimit,[N1|NS],WallsBot,NewWallsBot):-
   randomWallAnswer(Answer),
   Answer=y->
     (
@@ -287,15 +315,19 @@ wallBot([L1|LS],Xlimit,Ylimit,[N1|NS]):-
       randomPositionInside(Orientation,WallPositionInside),
       wallCoordinates(Orientation,WallPositionInside,WallX,WallY,FirstX,FirstY,SecondX,SecondY),
       validatePositions([L1|LS],NewOrientation,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY)->
-      writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]);
+      (
+        writeWallOnBoard([L1|LS],NewOrientation,FirstX,FirstY,SecondX,SecondY,[N1|NS]),
+        NewWallsBot is WallsBot+1
+      );
       (
         write('Invalid wall position, try again'),nl,
-        wallBot([L1|LS],Xlimit,Ylimit,[N1|NS])
+        wallBot([L1|LS],Xlimit,Ylimit,[N1|NS],WallsBot,NewWallsBot)
       )
     );
     (
       N1=L1,
-      LS=NS
+      LS=NS,
+      NewWallsBot=WallsBot
     ).
 
 validatePositions([L1|LS],v,Xlimit,Ylimit,FirstX,FirstY,SecondX,SecondY):-

@@ -6,15 +6,15 @@ mainMenu:-
 
 readInput(1):-
   emptyBoard(T),
-  gameLoop(T, 21, 27).
+  gameLoop(T, 21, 27,0,0).
 
 readInput(2):-
   emptyBoard(T),
-  gameLoopPlayerPc(T, 21, 27).
+  gameLoopPlayerPc(T, 21, 27,0,0).
 
 readInput(3):-
 	emptyBoard(T),
-	gameLoopPcPc(T, 21, 27).
+	gameLoopPcPc(T, 21, 27,0,0).
 
 readInput(4):-
   printHowToPlayMenu,

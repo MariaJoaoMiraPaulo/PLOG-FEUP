@@ -27,6 +27,7 @@ Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty
         [noWall, null, noWall, null, noWall, null, noWall, null, noWall, null,  noWall, null, noWall, null, noWall, null, noWall, null, noWall, null, noWall],
         [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
+
  normalBoard(Board):-
    Board = [[empty,noVerticalWall,empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty],
            [noWall,null, noWall,null, noWall, null, noWall, null,  noWall, null,  noWall,null,  noWall, null, noWall, null, noWall, null, noWall,null, noWall],
@@ -85,6 +86,64 @@ finalBoard(Board):-
            [noWall,empty, noWall,empty, noWall, empty, noWall,empty,  noWall, empty,  noWall,empty,  noWall, empty, noWall, empty, noWall, empty, noWall,empty, noWall],
            [empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty,noVerticalWall, empty, noVerticalWall, empty,noVerticalWall, empty]].
 
+
+newBoard(Board):-
+   Board = [[e,nVw,e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e],
+            [nW,n, nW,n, nW, n, nW, n,  nW, n,  nW,n,  nW, n, nW, n, nW, n, nW,n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw,e,nVw, e,nVw, e],
+            [nW,n, nW,n, nW, n, nW,n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]
+            [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e, nVw,e, nVw,e, nVw,p11, nVw,e,nVw, e, nVw,e,nVw, p12,nVw, e,nVw, e, nVw,e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n,  nW,  n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+            [e, nVw,e, nVw,e, nVw,p21, nVw,e,nVw, e, nVw,e,nVw, p22,nVw, e,nVw, e, nVw,e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW,e,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
+            [nW, n, nW, n, nW, n, nW, n, nW, n,  nW, n, nW, n, nW, n, nW, n, nW, n, nW],
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]].
+
+newFinalBoard(Board):-
+              Board=[[e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,p1,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,p21,vW,e,nVw,e,nVw,e,nVw,wP21,nVw,e,nVw,p22,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,vW,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,wall,e,wall,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,wall,e,wall,e,nW],
+              [e,nVw,e,nVw,e,nVw,sP2,nVw,e,nVw,e,nVw,e,nVw,sP2,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e],
+              [nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW,e,nW],
+              [e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e,nVw,e]].
 
 
 

@@ -116,7 +116,7 @@ validateInputPosition(k,NewAnswer):-
 validateInputPosition(_Answer1,NewAnswer):-
   write('Invalid position input'),nl,nl,nl,
   read(AnotherTry),
-  validateInputPosition(AnotherTry, NewDirection).
+  validateInputPosition(AnotherTry, NewAnswer).
 
 transformToRealCoordinates(ICoordinate,FCoordinate):-
   ICoordinate=1->FCoordinate=1;

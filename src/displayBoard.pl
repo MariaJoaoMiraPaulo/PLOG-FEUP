@@ -92,7 +92,7 @@ newBoard(Board):-
             [nW,n, nW,n, nW, n, nW, n,  nW, n,  nW,n,  nW, n, nW, n, nW, n, nW,n, nW],
             [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw,e,nVw, e,nVw, e],
             [nW,n, nW,n, nW, n, nW,n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
-            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e]
+            [e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e,nVw, e, nVw, e,nVw, e],
             [nW,n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],
             [e, nVw,e, nVw,e, nVw,p11, nVw,e,nVw, e, nVw,e,nVw, p12,nVw, e,nVw, e, nVw,e],
             [nW, n, nW, n, nW, n, nW, n,  nW, n,  nW, n,  nW, n, nW, n, nW, n, nW, n, nW],

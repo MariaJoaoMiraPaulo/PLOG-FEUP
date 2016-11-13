@@ -12,7 +12,7 @@ gameLoop([L1|LS], Xlimit, Ylimit, WallsPlayer1, WallsPlayer2):-
     winner(1).
 
 gameLoopPlayerPc([L1|LS], Xlimit, Ylimit, WallsPlayer, WallsBot):-
-  nl,nl,player1,nl,nl,
+  nl,nl,player,nl,nl,
   play([L1|LS],1,Xlimit,Ylimit,[N1|NS],Over1,WallsPlayer,NewWallsPlayer),
   Over1=0->
     (

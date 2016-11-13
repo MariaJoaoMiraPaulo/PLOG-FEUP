@@ -2,7 +2,8 @@
 mainMenu:-
 	printMainMenu,
   read(Input),
-  readInput(Input).
+  readInput(Input),
+	mainMenu.
 
 readInput(1):-
   emptyBoard(T),

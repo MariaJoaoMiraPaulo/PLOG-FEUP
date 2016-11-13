@@ -10,7 +10,7 @@ readInput(1):-
   gameLoop(T, 21, 27,0,0).
 
 readInput(2):-
-	write('Bot more difficulty (y or n):'),nl,
+	write('Choose dificulty of Bot(1->Normal or 2->Difficulty) :'),nl,
 	read(Input),
 	readInputBotDifficulty(Input).
 
@@ -29,7 +29,7 @@ readInput(5):-
 readInput(_Input):-
   write('Error: invalid input.').
 
-readInputBotDifficulty(y):-
+readInputBotDifficulty(2):-
 	emptyBoard(T),
   gameLoopPlayerPc(T,y,21,27,0,0).
 

@@ -4,6 +4,7 @@
  :- ensure_loaded('gameLogic.pl').
  :- ensure_loaded('menus.pl').
  :- ensure_loaded('bot.pl').
+ :- ensure_loaded('gameLoops.pl').
 
 pos:-
   emptyBoard(T),

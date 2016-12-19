@@ -23,15 +23,44 @@ initializeBoard([Line|Board],NCol,NLin):-
   NL is NLin-1,
   initializeBoard(Board,NCol,NL).
 
-  %Predicado que vê se os valores de uma linha sao todos iguais, retirando os valores de apoio à resolução do problema: 0.
+
+testDifferentLines([Line|Column],0).
+
+testDifferentLines([Line|Column],NLin):-
+  NewLine is NLine-1,
+  allDiferent(Line,NewLine).
+
+%Predicado que vê se os valores de uma linha sao todos iguais, retirando os valores de apoio à resolução do problema: 0.
 allDiferent([E1|E2]):-
   subtract([E1|E2],[0],Difference),
   allDiferent(Difference).
 
 
+checkAdjacentPositions(LineIndex,ColumnIndex,[Line|Board]):-
+  element(LineIndex-1,[Line|Board],LineElem),
+  element(ColumnIndex,LineElem,LineElem),
+  LineElem #\= 0, %Cima
+  element(LineIndex+1,[Line|Board],LineElem),
+  element(ColumnIndex,LineElem,LineElem),
+  LineElem #\= 0, %Baixo
+  element(LineIndex,[Line|Board],LineElem),
+  element(ColumnIndex-1,LineElem,LineElem),
+  LineElem #\= 0, %Esquerda
+  element(LineIndex,[Line|Board],LineElem),
+  element(ColumnIndex+1,LineElem,LineElem),
+  LineElem #\= 0. %Direita
+
+/*
+checkAdjacentPositions([]).
+
+checkAdjacentPositions([Line|Board]):- validate(Line,Board),checkAdjacentPositions(Board).
+
+validate([Elem|Line],Board):-
+*/
+
 hitori(Puzzle, PuzzleSolution):-
   initializeBoard(PuzzleSolution,8,8),
-  allDiferent(PuzzleSolution),
+  testDifferentLines(PuzzleSolution),
   transpose(PuzzleSolution,InvertedPuzzleSolution),
-  allDiferent(InvertedPuzzleSolution).
+  testDifferentLines(InvertedPuzzleSolution).
   %restrições.

@@ -39,7 +39,8 @@ initializeLine([],[],_NCol).
 initializeLine([Line|Board],[LinePuzzle|Puzzle],NCol):-
   initializeLine(Board,Puzzle,NCol),
   MaxValue is NCol * NCol,
-  Line in (LinePuzzle \/ 1..MaxValue).
+  N is LinePuzzle+1,
+  Line in ((LinePuzzle..LinePuzzle) \/ (N..MaxValue)).
 
 testDifferentLines([_Line|_Column],0).
 

@@ -1,6 +1,7 @@
 :-use_module(library(clpfd)).
 :-use_module(library(lists)).
 :-use_module(library(sets)).
+:- ensure_loaded('utilities.pl').
 
 newPuzzle(Puzzle):-
 Puzzle = [[4,8,1,6,3,2,5,7],
@@ -98,7 +99,7 @@ solver(Puzzle, PuzzleSolution):-
   maplist(labeling([ff]),PuzzleSolution).
 
 
-
+/*
   display_board([L1|LS], MaxValue):-
    write('|'),
    display_line(L1,MaxValue), nl,
@@ -117,4 +118,4 @@ solver(Puzzle, PuzzleSolution):-
     write('|'),
     display_line(ES,MaxValue).
 
-  display_line([],_MaxValue).
+  display_line([],_MaxValue).*/

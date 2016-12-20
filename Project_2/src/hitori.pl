@@ -12,111 +12,50 @@ Puzzle = [[4,8,1,6,3,2,5,7],
           [3,5,6,7,3,1,8,4],
           [6,4,2,3,5,4,7,8],
           [8,7,1,4,2,3,5,6]].
-/*
-%Dominio vai ser de 1 ao numero de Colunas
-%Inicializar tabuleiro com a soluação
-initializeBoard([_Line|_Board],_NCol,0).
 
-%length(?List,?Length)
-initializeBoard([Line|Board],NCol,NLin):-
-  length(Line,NCol),
-  domain(Line,1,NCol),
-  NL is NLin-1,
-  initializeBoard(Board,NCol,NL).*/
 
 %Dominio vai ser de 1 ao numero de Colunas
 %Inicializar tabuleiro com a soluação
-initializeBoard([],[],_NCol).
+initializeBoard([Line|PuzzleSolution],[LinePuzzle|Puzzle],Size):-
+  length(Line,Size),
+  initializeLine(Line,LinePuzzle,Size),
+  initializeBoard(PuzzleSolution,Puzzle,Size).
 
-%length(?List,?Length)
-initializeBoard([Line|Board],[LinePuzzle|Puzzle],NCol):-
-  initializeBoard(Board,Puzzle,NCol),
-  length(Line,NCol),
-  initializeLine(Line,LinePuzzle,NCol).
+initializeBoard([],[],_).
 
-initializeLine([],[],_NCol).
+initializeLine([S1|LineSolution],[P1|LinePuzzle],Size):-
+  MaxValue #= Size * Size,
+  N #= Size+1,
+  S1 in (P1..P1) \/ (N..MaxValue),
+  initializeLine(LineSolution,LinePuzzle,Size).
 
-initializeLine([Line|Board],[LinePuzzle|Puzzle],NCol):-
-  initializeLine(Board,Puzzle,NCol),
-  MaxValue is NCol * NCol,
-  N is LinePuzzle+1,
-  Line in ((LinePuzzle..LinePuzzle) \/ (N..MaxValue)).
+initializeLine([],[],_).
 
-testDifferentLines([_Line|_Column],0).
+checkAdjacentPositions(Size,[E1,E2|Line]):-
+  #\ (E1 #> Size #/\ E2 #> Size),
+  checkAdjacentPositions(Size,[E2|Line]).
 
-testDifferentLines([Line|_Column],_NLin):-
-  NewLine is _NLin-1,
-  allDiferent(Line,NewLine).
+checkAdjacentPositions(_,[_]).
 
-%Predicado que vê se os valores de uma linha sao todos iguais, retirando os valores de apoio à resolução do problema: 0.
-allDiferent([E1|E2]):-
-  subtract([E1|E2],[0],Difference),
-  allDiferent(Difference).
-
-
-checkAdjacentPositions(LineIndex,ColumnIndex,[Line|Board]):-
-  element(LineIndex-1,[Line|Board],LineElem),
-  element(ColumnIndex,LineElem,LineElem),
-  LineElem #\= 0, %Cima
-  element(LineIndex+1,[Line|Board],LineElem),
-  element(ColumnIndex,LineElem,LineElem),
-  LineElem #\= 0, %Baixo
-  element(LineIndex,[Line|Board],LineElem),
-  element(ColumnIndex-1,LineElem,LineElem),
-  LineElem #\= 0, %Esquerda
-  element(LineIndex,[Line|Board],LineElem),
-  element(ColumnIndex+1,LineElem,LineElem),
-  LineElem #\= 0. %Direita
-
-/*
-checkAdjacentPositions([]).
-
-checkAdjacentPositions([Line|Board]):- validate(Line,Board),checkAdjacentPositions(Board).
-
-validate([Elem|Line],Board):-
-*/
-/*
-hitori(Puzzle, PuzzleSolution):-
-  initializeBoard(PuzzleSolution,8,8),
-  testDifferentLines(PuzzleSolution),
-  transpose(PuzzleSolution,InvertedPuzzleSolution),
-  testDifferentLines(InvertedPuzzleSolution).
   %restrições.*/
 hitori(Puzzle, PuzzleSolution):-
-  solver(Puzzle, PuzzleSolution),
-  display_board(PuzzleSolution,9).
-
-
-solver(Puzzle, PuzzleSolution):-
   length(Puzzle,Size),
-  length(PuzzleSolution,Size),
+  solvePuzzle(Puzzle,Size,PuzzleSolution),
+  SecondSize is Size+1,
+  display_board(PuzzleSolution,SecondSize).
+
+
+solvePuzzle(Puzzle,Size,PuzzleSolution):-
+  /*length(Puzzle,Size),
+  length(PuzzleSolution,Size),!,*/
   initializeBoard(PuzzleSolution,Puzzle,Size),
   transpose(PuzzleSolution,TransposePuzzleSolution),
-  % não permitir elementos diferentes
 
+  % não permitir elementos diferentes
   maplist(all_distinct,PuzzleSolution),
   maplist(all_distinct,TransposePuzzleSolution),
 
-  maplist(labeling([ff]),PuzzleSolution).
+  maplist(checkAdjacentPositions(Size),PuzzleSolution),
+  maplist(checkAdjacentPositions(Size),TransposePuzzleSolution),
 
-
-/*
-  display_board([L1|LS], MaxValue):-
-   write('|'),
-   display_line(L1,MaxValue), nl,
-   display_board(LS,MaxValue).
-
-  display_board([],_MaxValue).
-
-  display_line([E1|ES],MaxValue):-
-   E1 < MaxValue,
-   write(E1),
-   write('|'),
-   display_line(ES,MaxValue).
-
-  display_line([_E1|ES],MaxValue):-
-    write(' '),
-    write('|'),
-    display_line(ES,MaxValue).
-
-  display_line([],_MaxValue).*/
+  maplist(labeling([]),PuzzleSolution).

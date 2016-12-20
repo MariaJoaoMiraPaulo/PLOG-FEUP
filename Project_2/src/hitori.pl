@@ -25,22 +25,25 @@ initializeBoard([Line|Board],NCol,NLin):-
 
 %Dominio vai ser de 1 ao numero de Colunas
 %Inicializar tabuleiro com a soluação
-initializeBoard([],_NCol).
+initializeBoard([],[],_NCol).
 
 %length(?List,?Length)
-initializeBoard([Line|Board],NCol):-
-  initializeBoard(Board,NCol),
-  MaxValue is 2 * NCol,
+initializeBoard([Line|Board],[LinePuzzle|Puzzle],NCol):-
+  initializeBoard(Board,Puzzle,NCol),
   length(Line,NCol),
-  domain(Line,1,MaxValue).
-  %NL is NLin-1,
-%  labeling([],Line),
+  initializeLine(Line,LinePuzzle,NCol).
 
+initializeLine([],[],_NCol).
 
-testDifferentLines([Line|Column],0).
+initializeLine([Line|Board],[LinePuzzle|Puzzle],NCol):-
+  initializeLine(Board,Puzzle,NCol),
+  MaxValue is NCol * NCol,
+  Line in (LinePuzzle \/ 1..MaxValue).
 
-testDifferentLines([Line|Column],NLin):-
-  NewLine is NLine-1,
+testDifferentLines([_Line|_Column],0).
+
+testDifferentLines([Line|_Column],_NLin):-
+  NewLine is _NLin-1,
   allDiferent(Line,NewLine).
 
 %Predicado que vê se os valores de uma linha sao todos iguais, retirando os valores de apoio à resolução do problema: 0.
@@ -78,12 +81,6 @@ hitori(Puzzle, PuzzleSolution):-
   testDifferentLines(InvertedPuzzleSolution).
   %restrições.*/
 hitori(Puzzle, PuzzleSolution):-
-  /*length(Puzzle,Size),
-  length(PuzzleSolution,Size),
-  transpose(Puzzle,InitialColumns),
-  length(InitialColumns,ColumnsSize),
-%  initializeBoard(PuzzleSolution,ColumnsSize),
-  %domain(SolutionColumns,1,ColumnsSize),*/
   solver(Puzzle, PuzzleSolution),
   display_board(PuzzleSolution,9).
 
@@ -91,7 +88,7 @@ hitori(Puzzle, PuzzleSolution):-
 solver(Puzzle, PuzzleSolution):-
   length(Puzzle,Size),
   length(PuzzleSolution,Size),
-  initializeBoard(PuzzleSolution,Size),
+  initializeBoard(PuzzleSolution,Puzzle,Size),
   transpose(PuzzleSolution,TransposePuzzleSolution),
   % não permitir elementos diferentes
 
@@ -107,7 +104,7 @@ solver(Puzzle, PuzzleSolution):-
    display_line(L1,MaxValue), nl,
    display_board(LS,MaxValue).
 
-  display_board([],MaxValue).
+  display_board([],_MaxValue).
 
   display_line([E1|ES],MaxValue):-
    E1 < MaxValue,
@@ -115,9 +112,9 @@ solver(Puzzle, PuzzleSolution):-
    write('|'),
    display_line(ES,MaxValue).
 
-  display_line([E1|ES],MaxValue):-
+  display_line([_E1|ES],MaxValue):-
     write(' '),
     write('|'),
     display_line(ES,MaxValue).
 
-  display_line([],MaxValue).
+  display_line([],_MaxValue).

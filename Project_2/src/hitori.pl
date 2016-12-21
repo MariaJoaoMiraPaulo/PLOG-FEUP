@@ -58,20 +58,8 @@ checkConnectivityCorners(Size,[S1|Solution],[TS1|TransposeSolution]):-
   #\ (E1 #> Size #/\ TE1#> Size)
   NextLine is Line+1,
   NextLine #=< Size.*/
-/*
-parseToGraph(Puzzle,Index,Size,Vertices,Edges):-
-  element(Index,Puzzle,P1),
-  P1 =< Size,
-  append([P1],Vertices2,Vertices).
-  getChilds(Puzzle,Index,Size,VerticeEdges)
-
-
-getChilds(Puzzle,Index,Size,VerticeEdges):-
-  getRightChild(Puzzle,Index,Size,E1) => */
 
 checkBordersConnectivity(Size,[S1|Solution],[TS1|TransposeSolution]):-
-/*  getLine(Size,1,[S1|Solution],SN),
-  getLine(Size,1,[TS1|TransposeSolution],TSN),*/
   BeforeLast #= Size - 1,
   getLine(2,1,[S1|Solution],S2),
   compareLines(S1,S2,Size),
@@ -103,14 +91,12 @@ flattenList([L1|Ls], Lf):- is_list(L1), flattenList(L1, L2), append(L2, Ld, Lf),
 flattenList([L1|Ls], [L1|Lf]):- \+is_list(L1), flattenList(Ls, Lf).
 
 randomStuff:-
-  write('entrei'),
   randomSize(Size),
-  randomBoard(Puzzle),
-  N is Size+1,
-  %display_board(Puzzle,30).
-/*  newPuzzle(Puzzle),*/
-  \+hitori(Puzzle,_PuzzleSolution), randomStuff;
-  write('Top').
+  randomBoard(Puzzle,Size),
+  PlusOneSize is Size+1,
+  BlackPerLine is round(Size * 0.25),
+  putBlacksOnPuzzle(PlusOneSize,BlackPerLine,Puzzle),
+  write(Puzzle).
 
 %restrições
 hitori(Puzzle, PuzzleSolution):-
@@ -121,8 +107,7 @@ hitori(Puzzle, PuzzleSolution):-
 
 
 solvePuzzle(Puzzle,Size,PuzzleSolution):-
-  /*length(Puzzle,Size),
-  length(PuzzleSolution,Size),!,*/
+
   initializeBoard(PuzzleSolution,Puzzle,Size),
 
   transpose(PuzzleSolution,TransposePuzzleSolution),
@@ -141,7 +126,7 @@ solvePuzzle(Puzzle,Size,PuzzleSolution):-
   maplist(labeling([]),PuzzleSolution).
 
 
-  randomBoard1(Puzzle,Size):-
+randomBoardRestrictions(Puzzle,Size):-
     /*length(Puzzle,Size),
     length(PuzzleSolution,Size),!,*/
     maplist(initializeRandomLine(Size),Puzzle),

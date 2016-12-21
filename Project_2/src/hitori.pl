@@ -5,15 +5,23 @@
 :- ensure_loaded('randomBoard.pl').
 
 newPuzzle(Puzzle):-
-Puzzle = [
-    [4,8,1,6,3,2,5,7],
-    [3,6,7,2,1,6,5,4],
-    [2,3,4,8,2,8,6,1],
-    [4,1,6,5,7,7,3,5],
-    [7,2,3,1,8,5,1,2],
-    [3,5,6,7,3,1,8,4],
-    [6,4,2,3,5,4,7,8],
-    [8,7,1,4,2,3,5,6]].
+  Puzzle = [
+      [1,2,5,4,5],
+      [2,1,4,5,3],
+      [3,5,5,1,5],
+      [4,5,2,3,1],
+      [5,3,1,3,4]].
+      
+
+% Puzzle = [
+%     [4,8,1,6,3,2,5,7],
+%     [3,6,7,2,1,6,5,4],
+%     [2,3,4,8,2,8,6,1],
+%     [4,1,6,5,7,7,3,5],
+%     [7,2,3,1,8,5,1,2],
+%     [3,5,6,7,3,1,8,4],
+%     [6,4,2,3,5,4,7,8],
+%     [8,7,1,4,2,3,5,6]].
 
 
 %Dominio vai ser de 1 ao numero de Colunas
@@ -31,10 +39,9 @@ initializeLine([S1|LineSolution],[P1|LinePuzzle],Size):-
   S1 in (P1..P1) \/ (N..MaxValue),
   initializeLine(LineSolution,LinePuzzle,Size).
 
-initializeRandomLine([],[],_).
-initializeRandomLine(LinePuzzle,Size):-
-  length(LinePuzzle,Size),
-  domain(LinePuzzle,1,Size).
+
+
+
 
 checkAdjacentPositions(_,[_]).
 checkAdjacentPositions(Size,[E1,E2|Line]):-
@@ -91,12 +98,15 @@ flattenList([L1|Ls], Lf):- is_list(L1), flattenList(L1, L2), append(L2, Ld, Lf),
 flattenList([L1|Ls], [L1|Lf]):- \+is_list(L1), flattenList(Ls, Lf).
 
 randomStuff:-
-  randomSize(Size),
-  randomBoard(Puzzle,Size),
+  Size is 5,
+  randomBoard(Puzzle2,Size),
+  randomBoardRestrictions(Puzzle,Size),
+  fillBoard(Puzzle,Size,Puzzle2),
   PlusOneSize is Size+1,
-  BlackPerLine is round(Size * 0.25),
-  putBlacksOnPuzzle(PlusOneSize,BlackPerLine,Puzzle),
-  write(Puzzle).
+  %display_board(Puzzle2,PlusOneSize).
+  display_board(Puzzle2,PlusOneSize).
+  %solvePuzzle(Puzzle,Size,S),% -> randomStuff;
+  %display_board(S,PlusOneSize).
 
 %restrições
 hitori(Puzzle, PuzzleSolution):-
@@ -120,18 +130,37 @@ solvePuzzle(Puzzle,Size,PuzzleSolution):-
   maplist(checkAdjacentPositions(Size),PuzzleSolution),
   maplist(checkAdjacentPositions(Size),TransposePuzzleSolution),
 
-  maplist(checkConnectivity(Size),PuzzleSolution,TransposePuzzleSolution),
-  checkBordersConnectivity(Size,PuzzleSolution,TransposePuzzleSolution),
+  %maplist(checkConnectivity(Size),PuzzleSolution,TransposePuzzleSolution),
+  %checkBordersConnectivity(Size,PuzzleSolution,TransposePuzzleSolution),
 
   maplist(labeling([]),PuzzleSolution).
 
 
+  % initializeRandomLine(Size,LinePuzzle):-
+  %   length(LinePuzzle,Size),
+  %   domain(LinePuzzle,1,Size).
+    /*E1 #> Size,
+    initializeRandomLine(LinePuzzle,Size).
+
+
+  initializeRandomLine([E1|LinePuzzle],Size):-
+    domain(E1,1,Size),
+    initializeRandomLine(LinePuzzle,Size).*/
+
+    initializeRandomLine([],_NCol).
+
+    %length(?List,?Length)
+    initializeRandomLine([Line|Board],NCol):-
+      initializeRandomLine(Board,NCol),
+      length(Line,NCol),
+      domain(Line,1,NCol).
+      %NL is NLin-1,
+
+
 randomBoardRestrictions(Puzzle,Size):-
-    /*length(Puzzle,Size),
-    length(PuzzleSolution,Size),!,*/
-    maplist(initializeRandomLine(Size),Puzzle),
-
-    % não permitir elementos diferentes nas linhas e colunas
+    length(Puzzle,Size),
+    initializeRandomLine(Puzzle,Size),
     maplist(all_distinct,Puzzle),
-
-    maplist(labeling([]),Puzzle).
+    transpose(Puzzle,TransposePuzzle),
+    maplist(all_distinct,TransposePuzzle),
+     maplist(labeling([]),Puzzle).

@@ -34,7 +34,7 @@ fillElement(E1,E2,Size,1):-
 fillElement(E1,E2,Size,1):-
     fillElement(E1,E2,Size,1).
 
-fillElement(E1,E2,Size,Index):-
+fillElement(E1,E2,_Size,_Index):-
   E2 = E1.
 
 initializeRandomLine([],_NCol).
@@ -50,4 +50,4 @@ randomBoardRestrictions(Puzzle,Size):-
   maplist(all_distinct,Puzzle),
   transpose(Puzzle,TransposePuzzle),
   maplist(all_distinct,TransposePuzzle),
-  maplist(labeling([]),Puzzle).
+  maplist(labeling([ffc]),Puzzle).

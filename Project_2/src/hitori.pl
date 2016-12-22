@@ -39,7 +39,7 @@ solvePuzzle(Puzzle,Size,PuzzleSolution):-
   maplist(all_distinct,TransposePuzzleSolution),
   maplist(checkAdjacentPositions(Size),PuzzleSolution),
   maplist(checkAdjacentPositions(Size),TransposePuzzleSolution),
-  maplist(labeling([]),PuzzleSolution).
+  maplist(labeling([ffc]),PuzzleSolution).
 
 randomSolver:-
   randomSize(Size),

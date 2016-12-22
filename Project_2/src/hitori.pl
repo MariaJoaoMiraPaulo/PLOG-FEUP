@@ -11,7 +11,7 @@ newPuzzle(Puzzle):-
       [3,5,5,1,5],
       [4,5,2,3,1],
       [5,3,1,3,4]].
-      
+
 
 % Puzzle = [
 %     [4,8,1,6,3,2,5,7],
@@ -97,16 +97,16 @@ flattenList([],[]).
 flattenList([L1|Ls], Lf):- is_list(L1), flattenList(L1, L2), append(L2, Ld, Lf), flattenList(Ls, Ld).
 flattenList([L1|Ls], [L1|Lf]):- \+is_list(L1), flattenList(Ls, Lf).
 
-randomStuff:-
-  Size is 5,
+randomSolver:-
+  randomSize(Size),
   randomBoard(Puzzle2,Size),
   randomBoardRestrictions(Puzzle,Size),
   fillBoard(Puzzle,Size,Puzzle2),
   PlusOneSize is Size+1,
   %display_board(Puzzle2,PlusOneSize).
-  display_board(Puzzle2,PlusOneSize).
-  %solvePuzzle(Puzzle,Size,S),% -> randomStuff;
-  %display_board(S,PlusOneSize).
+  display_board(Puzzle2,PlusOneSize),nl,nl,nl,nl,
+  solvePuzzle(Puzzle2,Size,S),% -> randomStuff;
+  display_board(S,PlusOneSize).
 
 %restrições
 hitori(Puzzle, PuzzleSolution):-

@@ -36,3 +36,18 @@ fillElement(E1,E2,Size,1):-
 
 fillElement(E1,E2,Size,Index):-
   E2 = E1.
+
+initializeRandomLine([],_NCol).
+
+initializeRandomLine([Line|Board],NCol):-
+  initializeRandomLine(Board,NCol),
+  length(Line,NCol),
+  domain(Line,1,NCol).
+
+randomBoardRestrictions(Puzzle,Size):-
+  length(Puzzle,Size),
+  initializeRandomLine(Puzzle,Size),
+  maplist(all_distinct,Puzzle),
+  transpose(Puzzle,TransposePuzzle),
+  maplist(all_distinct,TransposePuzzle),
+  maplist(labeling([]),Puzzle).

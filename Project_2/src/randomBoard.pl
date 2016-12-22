@@ -26,8 +26,8 @@ fillLine([E1|Line],Size,[E2|NewLine]):-
 fillLine([],_Size,[]).
 
 fillElement(E1,E2,Size,1):-
-  PlusOneSize is Size+1,
-  random(1,PlusOneSize,Elem),
+  SizePlusOne is Size+1,
+  random(1,SizePlusOne,Elem),
   Elem \= E1,
   E2 = Elem.
 

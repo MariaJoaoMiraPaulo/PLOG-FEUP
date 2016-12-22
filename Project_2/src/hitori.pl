@@ -1,66 +1,68 @@
 :-use_module(library(clpfd)).
 :-use_module(library(lists)).
 :-use_module(library(sets)).
+:- ensure_loaded('utilities.pl').
+:- ensure_loaded('randomBoard.pl').
 
 newPuzzle(Puzzle):-
-Puzzle = [[4,8,1,6,3,2,5,7],
-          [3,6,7,2,1,6,5,4],
-          [2,3,4,8,2,8,6,1],
-          [2,3,4,8,2,8,6,1],
-          [4,1,6,5,7,7,3,5],
-          [3,5,6,7,3,1,8,4],
-          [6,4,2,3,5,4,7,8],
-          [8,7,1,4,2,3,5,6]].
+Puzzle = [
+    [4,8,1,6,3,2,5,7],
+    [3,6,7,2,1,6,5,4],
+    [2,3,4,8,2,8,6,1],
+    [4,1,6,5,7,7,3,5],
+    [7,2,3,1,8,5,1,2],
+    [3,5,6,7,3,1,8,4],
+    [6,4,2,3,5,4,7,8],
+    [8,7,1,4,2,3,5,6]].
 
-%Dominio vai ser de 1 ao numero de Colunas
-%Inicializar tabuleiro com a soluação
-initializeBoard([_Line|_Board],_NCol,0).
+initializeBoard([],[],_).
+initializeBoard([Line|PuzzleSolution],[LinePuzzle|Puzzle],Size):-
+  initializeLine(Line,LinePuzzle,Size),
+  initializeBoard(PuzzleSolution,Puzzle,Size).
 
-%length(?List,?Length)
-initializeBoard([Line|Board],NCol,NLin):-
-  length(Line,NCol),
-  domain(Line,1,NCol),
-  NL is NLin-1,
-  initializeBoard(Board,NCol,NL).
+initializeLine([],[],_).
+initializeLine([S1|LineSolution],[P1|LinePuzzle],Size):-
+  MaxValue #= Size * Size,
+  N #= Size+1,
+  S1 in (P1..P1) \/ (N..MaxValue),
+  initializeLine(LineSolution,LinePuzzle,Size).
 
+checkAdjacentPositions(_,[_]).
+checkAdjacentPositions(Size,[E1,E2|Line]):-
+  #\ (E1 #> Size #/\ E2 #> Size),
+  checkAdjacentPositions(Size,[E2|Line]).
 
-testDifferentLines([Line|Column],0).
+solvePuzzle(Puzzle,Size,PuzzleSolution):-
+  initializeBoard(PuzzleSolution,Puzzle,Size),
+  transpose(PuzzleSolution,TransposePuzzleSolution),
+  maplist(all_distinct,PuzzleSolution),
+  maplist(all_distinct,TransposePuzzleSolution),
+  maplist(checkAdjacentPositions(Size),PuzzleSolution),
+  maplist(checkAdjacentPositions(Size),TransposePuzzleSolution),
+  maplist(labeling([]),PuzzleSolution).
 
-testDifferentLines([Line|Column],NLin):-
-  NewLine is NLine-1,
-  allDiferent(Line,NewLine).
+randomSolver:-
+  randomSize(Size),
+  randomBoard(Puzzle2,Size),
+  randomBoardRestrictions(Puzzle,Size),
+  fillBoard(Puzzle,Size,Puzzle2),
+  SizePlusOne is Size+1,
+  display_board(Puzzle2,SizePlusOne),nl,nl,nl,nl,
+  solvePuzzle(Puzzle2,Size,Solution),
+  display_board(Solution,SizePlusOne).
 
-%Predicado que vê se os valores de uma linha sao todos iguais, retirando os valores de apoio à resolução do problema: 0.
-allDiferent([E1|E2]):-
-  subtract([E1|E2],[0],Difference),
-  allDiferent(Difference).
-
-
-checkAdjacentPositions(LineIndex,ColumnIndex,[Line|Board]):-
-  element(LineIndex-1,[Line|Board],LineElem),
-  element(ColumnIndex,LineElem,LineElem),
-  LineElem #\= 0, %Cima
-  element(LineIndex+1,[Line|Board],LineElem),
-  element(ColumnIndex,LineElem,LineElem),
-  LineElem #\= 0, %Baixo
-  element(LineIndex,[Line|Board],LineElem),
-  element(ColumnIndex-1,LineElem,LineElem),
-  LineElem #\= 0, %Esquerda
-  element(LineIndex,[Line|Board],LineElem),
-  element(ColumnIndex+1,LineElem,LineElem),
-  LineElem #\= 0. %Direita
-
-/*
-checkAdjacentPositions([]).
-
-checkAdjacentPositions([Line|Board]):- validate(Line,Board),checkAdjacentPositions(Board).
-
-validate([Elem|Line],Board):-
-*/
+generateRandomBoard:-
+  randomSize(Size),
+  randomBoard(Puzzle2,Size),
+  randomBoardRestrictions(Puzzle,Size),
+  fillBoard(Puzzle,Size,Puzzle2),
+  SizePlusOne is Size+1,
+  display_board(Puzzle2,SizePlusOne).
 
 hitori(Puzzle, PuzzleSolution):-
-  initializeBoard(PuzzleSolution,8,8),
-  testDifferentLines(PuzzleSolution),
-  transpose(PuzzleSolution,InvertedPuzzleSolution),
-  testDifferentLines(InvertedPuzzleSolution).
-  %restrições.
+  newPuzzle(Puzzle),
+  length(Puzzle,Size),
+  SecondSize is Size+1,
+  display_board(Puzzle,SecondSize),nl,nl,nl,nl,
+  solvePuzzle(Puzzle,8,PuzzleSolution),
+  display_board(PuzzleSolution,SecondSize).

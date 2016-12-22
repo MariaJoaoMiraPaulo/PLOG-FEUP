@@ -42,6 +42,7 @@ solvePuzzle(Puzzle,Size,PuzzleSolution):-
   maplist(labeling([ffc]),PuzzleSolution).
 
 randomSolver:-
+  reset_timer,
   randomSize(Size),
   randomBoard(Puzzle2,Size),
   randomBoardRestrictions(Puzzle,Size),
@@ -49,20 +50,28 @@ randomSolver:-
   SizePlusOne is Size+1,
   display_board(Puzzle2,SizePlusOne),nl,nl,nl,nl,
   solvePuzzle(Puzzle2,Size,Solution),
-  display_board(Solution,SizePlusOne).
+  display_board(Solution,SizePlusOne),
+  print_time,
+  fd_statistics.
 
 generateRandomBoard:-
+  reset_timer,
   randomSize(Size),
   randomBoard(Puzzle2,Size),
   randomBoardRestrictions(Puzzle,Size),
   fillBoard(Puzzle,Size,Puzzle2),
   SizePlusOne is Size+1,
-  display_board(Puzzle2,SizePlusOne).
+  display_board(Puzzle2,SizePlusOne),
+  print_time,
+  fd_statistics.
 
 hitori(Puzzle, PuzzleSolution):-
   newPuzzle(Puzzle),
   length(Puzzle,Size),
   SecondSize is Size+1,
   display_board(Puzzle,SecondSize),nl,nl,nl,nl,
+  reset_timer,
   solvePuzzle(Puzzle,8,PuzzleSolution),
-  display_board(PuzzleSolution,SecondSize).
+  display_board(PuzzleSolution,SecondSize),
+  print_time,
+  fd_statistics.

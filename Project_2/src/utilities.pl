@@ -17,3 +17,10 @@ display_line([_E1|ES],MaxValue):-
   display_line(ES,MaxValue).
 
 display_line([],_MaxValue).
+
+reset_timer :- statistics(walltime,_).
+
+print_time :-
+	statistics(walltime,[_,T]),
+	TS is ((T//10)*10)/1000,
+	nl, write('Time: '), write(TS), write('s'), nl, nl.

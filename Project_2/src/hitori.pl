@@ -66,11 +66,11 @@ generateRandomBoard:-
   fd_statistics.
 
 hitori(Puzzle, PuzzleSolution):-
+  reset_timer,
   newPuzzle(Puzzle),
   length(Puzzle,Size),
   SecondSize is Size+1,
   display_board(Puzzle,SecondSize),nl,nl,nl,nl,
-  reset_timer,
   solvePuzzle(Puzzle,8,PuzzleSolution),
   display_board(PuzzleSolution,SecondSize),
   print_time,
